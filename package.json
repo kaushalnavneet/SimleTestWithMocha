@@ -1,16 +1,23 @@
 {
-	"name": "HelloWorldNodeApp",
-	"version": "0.0.1",
-    "private": true,
-	"scripts": {
-		"start": "node app.js"
-	},
-	"dependencies": {
-		"express": "4.13.x",
-		"cfenv": "1.0.x"
-	},
-	"repository": {},
-	"engines": {
-		"node": "6.x.x"
-	} 
+  "name": "HelloWorldNodeApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha test --reporter mocha-junit-reporter --reporter-options mochaFile=./testResult/test-result.xml",
+    "coverage":"istanbul cover test/test.js"
+  },
+  "dependencies": {
+    "express": "4.13.x",
+    "cfenv": "1.0.x"
+  },
+  "repository": {},
+  "engines": {
+    "node": "6.x.x"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "mocha-junit-reporter": "^1.18.0",
+    "nyc": "^13.1.0"
+  }
 }

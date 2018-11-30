@@ -1,1 +1,4 @@
 launchConfigurations/
+node_modules/
+coverage/
+testResult/
