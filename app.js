@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------a------
 
 // This application uses express as its web server
-// for more info, see: http://expressjs.com123
+// for more info, see: http://expressjs.com123123
 var express = require('express');
 
 // cfenv provides access to your Cloud Foundry environment
