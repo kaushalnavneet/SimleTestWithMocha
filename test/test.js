@@ -15,8 +15,12 @@ describe('TEST', function() {
   });
   
   describe('this one fails', function() {
-    it('show fail', function() {
+    it('show fail1', function() {
       assert.equal(utils.showcase(), 2);
+    });
+    
+     it('show fail2', function() {
+      assert.equal(utils.showcase(), 3);
     });
   });
 });
