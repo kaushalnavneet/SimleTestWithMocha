@@ -2,7 +2,7 @@
 #Invoke tests here
 
 export NVM_DIR=/home/pipeline/nvm
-export NODE_VERSION=8.13.1
+export NODE_VERSION=6.13.1
 export NVM_VERSION=0.29.0
 
 npm config delete prefix \
