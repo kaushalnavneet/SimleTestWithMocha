@@ -13,12 +13,12 @@
   },
   "repository": {},
   "engines": {
-    "node": "6.x.x"
+    "node": "10.x.x"
   },
   "devDependencies": {
     "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
-    "mocha-junit-reporter": "^1.18.0",
+    "mocha": "6.1.4",
+    "mocha-junit-reporter": "1.22.0",
     "nyc": "^13.1.0"
   }
 }
