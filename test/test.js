@@ -30,6 +30,9 @@ describe('fail on second', function() {
 });
 
 describe('skip', function() {
+  it.skip('show passes', function() {
+    assert.equal(utils.showcase(), 1);
+  });
   it('show passes', function() {
     assert.equal(utils.showcase(), 1);
   });
