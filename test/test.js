@@ -14,25 +14,23 @@ var assert = require('assert');
 //       assert.equal(true, false);
 // });
 
-
 describe('Pass', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1,2,3].indexOf(4), -1);
-    });
+  it('should return -1 when the value is not present', function() {
+    assert.equal([1,2,3].indexOf(4), -1);
   });
 });
-  
-  describe('fail on second', function() {
-    it('should pass', function() {
-      assert.equal(true, false);
-    });
+
+describe('fail on second', function() {
+  it('should pass', function() {
+    assert.equal(true, false);
   });
-  
-  describe('pass', function() {
-    it('show passes', function() {
-      assert.equal(utils.showcase(), 1);
-    });
+});
+
+describe('pass', function() {
+  it('show passes', function() {
+    assert.equal(utils.showcase(), 1);
+  });
+});
     
 //      it('show fail2', function() {
 //       assert.equal(utils.showcase(), 2);
