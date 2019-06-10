@@ -29,7 +29,7 @@ describe('fail on second', function() {
   });
 });
 
-describe.skip('pass', function() {
+describe.skip('skip', function() {
   it('show passes', function() {
     assert.equal(utils.showcase(), 1);
   });
