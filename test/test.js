@@ -2,9 +2,17 @@ var utils = require("../utils");
 
 var assert = require('assert');
 
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1,2,3].indexOf(4), -1);
-    });
+it('should return -1 when the value is not present', function() {
+  assert.equal([1,2,3].indexOf(4), -1);
+});
+
+it('should fail', function() {
+      assert.equal(true, false);
+});
+
+xit('should fail', function() {
+      assert.equal(true, false);
+});
 
 
 // describe('TEST', function() {
