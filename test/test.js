@@ -22,6 +22,7 @@ describe('Pass', function() {
 
 describe('fail on second', function() {
   it('should pass', function() {
+    assert.equal(true, true);
     assert.equal(true, false);
   });
 });
