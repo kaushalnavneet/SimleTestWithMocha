@@ -27,6 +27,9 @@ describe('fail on second', function() {
   it('should fail', function() {
     assert.equal(true, false);
   });
+  it('should skip?', function() {
+    assert.equal(true, true);
+  });
 });
 
 describe('pass', function() {
