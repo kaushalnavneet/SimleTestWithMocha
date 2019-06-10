@@ -21,10 +21,11 @@ describe('Pass', function() {
       assert.equal([1,2,3].indexOf(4), -1);
     });
   });
+});
   
   describe('fail on second', function() {
-    xit('should pass', function() {
-      assert.equal(true, true);
+    it('should pass', function() {
+      assert.equal(true, false);
     });
   });
   
