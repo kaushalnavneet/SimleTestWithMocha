@@ -15,23 +15,26 @@ it('should fail', function() {
 });
 
 
-// describe('TEST', function() {
-//   describe('#indexOf()', function() {
-//     it('should return -1 when the value is not present', function() {
-//       assert.equal([1,2,3].indexOf(4), -1);
-//     });
-//   });
+describe('Pass', function() {
+  describe('#indexOf()', function() {
+    it('should return -1 when the value is not present', function() {
+      assert.equal([1,2,3].indexOf(4), -1);
+    });
+  });
   
-//   describe('equal to 1', function() {
-//     it('show be 1', function() {
-//       assert.equal(utils.showcase(), 1);
-//     });
-//   });
+  describe('fail on second', function() {
+    xit('should pass', function() {
+      assert.equal(true, true);
+    });
+    it('should fail', function() {
+          assert.equal(true, false);
+    });
+  });
   
-//   describe('this one fails', function() {
-//     it('show passes', function() {
-//       assert.equal(utils.showcase(), 1);
-//     });
+  describe('pass', function() {
+    it('show passes', function() {
+      assert.equal(utils.showcase(), 1);
+    });
     
 //      it('show fail2', function() {
 //       assert.equal(utils.showcase(), 2);
