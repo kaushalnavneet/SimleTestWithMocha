@@ -29,8 +29,8 @@ describe('fail on second', function() {
   });
 });
 
-describe.skip('skip', function() {
-  it('show passes', function() {
+describe('skip', function() {
+  xit('show passes', function() {
     assert.equal(utils.showcase(), 1);
   });
 });
