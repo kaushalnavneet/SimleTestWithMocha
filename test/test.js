@@ -1,7 +1,11 @@
 var utils = require("../utils");
 
 var assert = require('assert');
-assert.equal(1, true);
+describe('one test', function() {
+  it('should return true' function() {
+    assert.equal(1, true);
+  });
+});
 // describe('TEST', function() {
 //   describe('#indexOf()', function() {
 //     it('should return -1 when the value is not present', function() {
