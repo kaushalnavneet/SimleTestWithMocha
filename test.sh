@@ -16,4 +16,4 @@ npm config delete prefix \
 
 npm install
 npm run test
-#npm run coverage
+npm run coverage
