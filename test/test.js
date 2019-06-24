@@ -20,14 +20,14 @@ describe('Pass', function() {
   });
 });
 
-describe('fail on second', function() {
-  it('should pass', function() {
-    assert.equal(true, true);
-  });
-  it('should fail', function() {
-    assert.equal(true, false);
-  });
-});
+// describe('fail on second', function() {
+//   it('should pass', function() {
+//     assert.equal(true, true);
+//   });
+//   it('should fail', function() {
+//     assert.equal(true, false);
+//   });
+// });
     
 //      it('show fail2', function() {
 //       assert.equal(utils.showcase(), 2);
