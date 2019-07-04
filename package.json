@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test/test --reporter mocha-junit-reporter --reporter-options mochaFile=./testResult/test-result.xml",
+    "test": "mocha test/test --reporter-options mochaFile=./testResult/test-result.xml",
     "coverage": "istanbul cover ./node_modules/.bin/_mocha test/test.js"
   },
   "dependencies": {
