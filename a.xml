@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="44">
+
+  <testsuite name="pipeline-ui__jobs-crud"
+    errors="0" failures="1" hostname="" id="" package="pipeline-ui__jobs-crud" skipped="23"
+    tests="44" time="68.81" timestamp="Fri, 21 Jun 2019 18:17:55 GMT">
+  
+    <testcase name="Cloud Login" classname="pipeline-ui__jobs-crud" time="14.01" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="Create Empty Pipeline" classname="pipeline-ui__jobs-crud" time="11.86" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Set-up: add Stage" classname="pipeline-ui__jobs-crud" time="3.158" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Set-up: open Stage" classname="pipeline-ui__jobs-crud" time="1.916" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Save and Cancel buttons: verify initial state" classname="pipeline-ui__jobs-crud" time="0.03100" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Build job: click the Add Job button" classname="pipeline-ui__jobs-crud" time="0.2600" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Build job: click the build type item" classname="pipeline-ui__jobs-crud" time="0.1410" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="Build job: ensure build parameters are visible" classname="pipeline-ui__jobs-crud" time="0.1690" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Build job - Save and Cancel buttons: verify state" classname="pipeline-ui__jobs-crud" time="0.02500" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Build job: change job name" classname="pipeline-ui__jobs-crud" time="0.2660" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Build job: save Stage" classname="pipeline-ui__jobs-crud" time="0.1440" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Build job: re-open Stage" classname="pipeline-ui__jobs-crud" time="2.559" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Build job: re-select Jobs tab" classname="pipeline-ui__jobs-crud" time="0.1070" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="Build job: assert job was saved" classname="pipeline-ui__jobs-crud" time="0.02200" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="Build job: check the build job" classname="pipeline-ui__jobs-crud" time="0.07400" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Remove Build job: click the OK button to remove the job" classname="pipeline-ui__jobs-crud" time="0.3710" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Deploy job: click the Add Job button" classname="pipeline-ui__jobs-crud" time="0.1740" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Deploy job: click the Deploy type item" classname="pipeline-ui__jobs-crud" time="0.1620" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="Deploy job: ensure Deploy parameters are visible" classname="pipeline-ui__jobs-crud" time="0.2410" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Deploy job: change job and app name" classname="pipeline-ui__jobs-crud" time="1.628" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Deploy job: save Stage" classname="pipeline-ui__jobs-crud" time="31.49" assertions="5">
+
+    
+
+    
+
+    
+
+      <failure message="Failed [ok]: (Save button (#save-button) was still not clickable after 30000 ms.)">    at /Users/david.voicu@ibm.com/workspace/e2e-tests-common/tests/nightwatch-commands/waitAndClick.js:65:23
+    at /Users/david.voicu@ibm.com/workspace/e2e-tests-common/tests/nightwatch-commands/waitAndClick.js:116:9
+    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Deploy job: re-open Stage" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: re-select Jobs tab" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: assert job was saved" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: check the deploy job paramerers" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: change API key" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: change target org" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: change target space" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: change IBM Cloud Region" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: change Deployer Type" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job: verify Kubernetes Deployer Type" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deploy job - Kubernetes Deployer Type: change API key" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Remove Deploy job: click the OK button to remove the job" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: click the Add Job button" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: click the Test type item" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: ensure Test parameters are visible" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: change job and app name" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: save Stage" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: re-open Stage" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: re-select Jobs tab" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: assert job was saved" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test job: check the test job paramerers" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Tear down: click Cancel button" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Tear down: delete Pipeline" classname="pipeline-ui__jobs-crud">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>
