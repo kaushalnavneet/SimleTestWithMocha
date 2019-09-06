@@ -1,3 +1,4 @@
 FROM node:alpine
 
-RUN apk update && apk upgrade && npm install
+RUN apt-get update && \
+    apt-get install -q -y python python-pip
