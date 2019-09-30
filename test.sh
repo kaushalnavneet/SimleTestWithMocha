@@ -1,6 +1,6 @@
 #!/bin/bash
 #Invoke tests here123123123
-
+export BOG=1
 export NVM_DIR=/home/pipeline/nvm
 export NODE_VERSION=6.13.1
 export NVM_VERSION=0.29.0
