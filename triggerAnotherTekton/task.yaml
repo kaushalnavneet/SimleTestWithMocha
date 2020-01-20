@@ -17,6 +17,9 @@ spec:
       - name: api
         description: the ibmcloud api endpoint
         default: "https://cloud.ibm.com"
+      - name: region
+        description: the region ibmcloud login to
+        default: "us-south"
   steps:
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
@@ -25,6 +28,8 @@ spec:
           value: $(inputs.params.another-pipeline-id)
         - name: ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME
           value: ${inputs.params.another-pipeline-manual-trigger}
+        - name: REGION
+          value: ${inputs.params.region}
         - name: DEVOPS_API
           value: $(inputs.params.devops-api)
         - name: API_KEY
@@ -34,13 +39,13 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          ibmcloud login --apikey $API_KEY;
+          ibmcloud login --apikey $API_KEY -r $REGION;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           # trigger another tekton pipeline
-          echo "About to trigger manual trigger '${ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME}' of tekton pipeline ${ANOTHER_PIPELINE_ID}"
+          echo "About to trigger manual trigger ${ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME} of tekton pipeline ${ANOTHER_PIPELINE_ID} using endpoint ${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"
           curl -X POST \
-            "${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}"\
+            "${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"\
             -H "Accept: application/json" \
             -H "Content-Type: application/json" \
             -H "Authorization: ${TOKEN}" \
-            -d '{"eventListener":"${ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME}"}'
+            -d '{"eventListener": ${ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME}}'
