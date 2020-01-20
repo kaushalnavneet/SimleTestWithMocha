@@ -48,4 +48,4 @@ spec:
             -H "Accept: application/json" \
             -H "Content-Type: application/json" \
             -H "Authorization: ${TOKEN}" \
-            -d '{"eventListener": "${MANUAL_TRIGGER_NAME}"}'
+            -d "{eventListener: $MANUAL_TRIGGER_NAME}"
