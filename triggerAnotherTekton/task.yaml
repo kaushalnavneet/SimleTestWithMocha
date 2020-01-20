@@ -27,14 +27,14 @@ spec:
           value: ${inputs.params.another-pipeline-manual-trigger}
         - name: DEVOPS_API
           value: $(inputs.params.devops-api)
-        - name: IBMCLOUD_API_KEY
+        - name: API_KEY
           value: $(inputs.params.apikey)
         - name: API
           value: $(inputs.params.api)
       command: ["/bin/sh", "-c"]
       args:
         - |
-          ibmcloud login -a $API
+          ibmcloud login --apikey $API_KEY;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           # trigger another tekton pipeline
           echo "About to trigger manual trigger '${ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME}' of tekton pipeline ${ANOTHER_PIPELINE_ID}"
