@@ -1,0 +1,53 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: template
+spec:
+  params:
+    - name: another-pipeline-id
+      description: the pipeline Id of another tekton pipeline to trigger
+    - name: another-pipeline-manual-trigger
+      description: manual trigger name of another tekton pipeline
+    - name: apikey
+      description: the ibmcloud api key
+    - name: devops-api
+      description: the ibmcloud devops-api endpoint
+      default: "https://devops-api.us-south.devops.cloud.ibm.com"
+    - name: api
+      description: the ibmcloud api endpoint
+      default: "https://cloud.ibm.com"
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        name: pipelinerun-$(uid)
+      spec:
+        pipelineRef:
+            name: pipeline
+        params:
+        - name: another-pipeline-id
+          value: $(params.another-pipeline-id)
+        - name: another-pipeline-manual-trigger
+          value: $(params.another-pipeline-manual-trigger)
+        - name: apikey
+          value: $(params.apikey)
+        - name: devops-api
+          value: $(params.devops-api)
+        - name: api
+          value: $(params.api)
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: binding
+---
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: listener
+spec:
+  triggers:
+    - binding:
+        name: binding
+      template:
+        name: template

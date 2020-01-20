@@ -1,0 +1,45 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: trigger-another
+spec:
+  inputs:
+    params:
+      - name: another-pipeline-id
+        description: the pipeline Id of another tekton pipeline to trigger
+      - name: another-pipeline-manual-trigger
+        description: manual trigger name of another tekton pipeline
+      - name: apikey
+        description: the ibmcloud api key
+      - name: devops-api
+        description: the ibmcloud devops-api endpoint
+        default: "https://devops-api.us-south.devops.cloud.ibm.com"
+      - name: api
+        description: the ibmcloud api endpoint
+        default: "https://cloud.ibm.com"
+  steps:
+    - name: trigger-another-tekton-pipeline
+      image: ibmcom/pipeline-base-image
+      env:
+        - name: ANOTHER_PIPELINE_ID
+          value: $(inputs.params.another-pipeline-id)
+        - name: ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME
+          value: ${inputs.params.another-pipeline-manual-trigger}
+        - name: DEVOPS_API
+          value: $(inputs.params.devops-api)
+        - name: IBMCLOUD_API_KEY
+          value: $(inputs.params.apikey)
+        - name: API
+          value: $(inputs.params.api)
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          ibmcloud login --apikey $API_KEY
+          TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
+          # trigger another tekton pipeline
+          curl -X POST \
+            "${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}"\
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: ${TOKEN}" \
+            -d '{"eventListener":"${ANOTHER_PIPELINE_MANUAL_TRIGGER_NAME}"}'
