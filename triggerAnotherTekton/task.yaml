@@ -27,9 +27,9 @@ spec:
         - name: ANOTHER_PIPELINE_ID
           value: $(inputs.params.another-pipeline-id)
         - name: MANUAL_TRIGGER_NAME
-          value: ${inputs.params.manual-trigger}
+          value: $(inputs.params.manual-trigger)
         - name: REGION
-          value: ${inputs.params.region}
+          value: $(inputs.params.region)
         - name: DEVOPS_API
           value: $(inputs.params.devops-api)
         - name: API_KEY

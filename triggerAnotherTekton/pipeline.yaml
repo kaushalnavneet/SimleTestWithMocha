@@ -32,4 +32,4 @@ spec:
         - name: api
           value: $(params.api)   
         - name: region
-          value: ${params.region}
+          value: $(params.region)
