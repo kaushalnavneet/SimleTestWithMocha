@@ -39,10 +39,10 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          ibmcloud login --apikey $API_KEY;
+          ibmcloud login --apikey $API_KEY -r $REGION;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           # trigger another tekton pipeline
-          echo "About to start ${MANUAL_TRIGGER_NAME} of tekton pipeline ${ANOTHER_PIPELINE_ID} using endpoint ${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"
+          echo "About to start $MANUAL_TRIGGER_NAME of tekton pipeline ${ANOTHER_PIPELINE_ID} using endpoint ${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"
           curl -X POST \
             "${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"\
             -H "Accept: application/json" \
