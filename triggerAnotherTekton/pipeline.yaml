@@ -6,7 +6,7 @@ spec:
   params:
       - name: another-pipeline-id
         description: the pipeline Id of another tekton pipeline to trigger
-      - name: another-pipeline-manual-trigger
+      - name: manual-trigger
         description: manual trigger name of another tekton pipeline
       - name: apikey
         description: the ibmcloud api key
@@ -14,6 +14,8 @@ spec:
         description: the ibmcloud devops-api endpoint
       - name: api
         description: the ibmcloud api endpoint
+      - name: region
+        description: the ibmcloud region
   tasks:
     - name: pipeline-trigger-another-pipeline
       taskRef:
@@ -21,11 +23,13 @@ spec:
       params:
         - name: another-pipeline-id
           value: $(params.another-pipeline-id)
-        - name: another-pipeline-manual-trigger
-          value: $(params.another-pipeline-manual-trigger)
+        - name: manual-trigger
+          value: $(params.manual-trigger)
         - name: apikey
           value: $(params.apikey)
         - name: devops-api
           value: $(params.devops-api)
         - name: api
           value: $(params.api)   
+        - name: region
+          value: ${params.region}
