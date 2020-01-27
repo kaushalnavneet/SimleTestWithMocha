@@ -49,6 +49,17 @@ apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: binding
+spec:
+  params:
+    - name: another-pipeline-id
+      description: the pipeline Id of another tekton pipeline to trigger
+      value: $(event.another-pipeline-id)
+    - name: manual-trigger
+      description: manual trigger name of another tekton pipeline
+      value: $(event.manual-trigger)
+    - name: apikey
+      description: the ibmcloud api key
+      value: $(event.apikey)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
