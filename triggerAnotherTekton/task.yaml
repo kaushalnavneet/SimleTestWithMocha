@@ -21,11 +21,6 @@ spec:
           configMapKeyRef:
             name: cd-config
             key: REGION
-      - name: BUILD_NUMBER
-        valueFrom:
-          configMapKeyRef:
-            name: toolchain
-            key: buildNumber
       - name: API_KEY
         valueFrom:
           secretKeyRef:
