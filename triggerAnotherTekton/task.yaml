@@ -9,6 +9,8 @@ spec:
         description: the pipeline Id of another tekton pipeline to trigger
       - name: manual-trigger
         description: manual trigger name of another tekton pipeline
+      - name: repository
+        description: the git repository url that we interested in
   stepTemplate:
     env:
       - name: API
@@ -26,12 +28,27 @@ spec:
           configMapKeyRef:
             name: toolchain
             key: buildNumber
+      - name: TOOLCHAIN
+        valueFrom:
+          configMapKeyRef:
+            name: toolchain
+            key: toolchain
       - name: API_KEY
         valueFrom:
           secretKeyRef:
             name: cd-secret
             key: API_KEY
   steps:
+    - name: play-with-toolchain-object
+      image: ibmcom/pipeline-base-image
+      env:
+        - name: REPOSITORY
+          value: $(inputs.params.repository)
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          GIT_TOKEN_URL=$(cat $TOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
+          echo "GIT_TOKEN_URL is $GIT_TOKEN_URL"
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
       env:

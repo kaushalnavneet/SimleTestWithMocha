@@ -60,6 +60,8 @@ spec:
     - name: apikey
       description: the ibmcloud api key
       value: $(event.apikey)
+    - name: repository
+      value: $(event.repository)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
