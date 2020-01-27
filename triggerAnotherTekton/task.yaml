@@ -9,17 +9,28 @@ spec:
         description: the pipeline Id of another tekton pipeline to trigger
       - name: manual-trigger
         description: manual trigger name of another tekton pipeline
-      - name: apikey
-        description: the ibmcloud api key
-      - name: devops-api
-        description: the ibmcloud devops-api endpoint
-        default: "https://devops-api.us-south.devops.cloud.ibm.com"
-      - name: api
-        description: the ibmcloud api endpoint
-        default: "https://cloud.ibm.com"
-      - name: region
-        description: the region ibmcloud login to
-        default: "us-south"
+  stepTemplate:
+    env:
+      - name: API
+        valueFrom:
+          configMapKeyRef:
+            name: cd-config
+            key: API
+      - name: REGION
+        valueFrom:
+          configMapKeyRef:
+            name: cd-config
+            key: REGION
+      - name: BUILD_NUMBER
+        valueFrom:
+          configMapKeyRef:
+            name: toolchain
+            key: buildNumber
+      - name: API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cd-secret
+            key: API_KEY
   steps:
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
@@ -28,21 +39,14 @@ spec:
           value: $(inputs.params.another-pipeline-id)
         - name: MANUAL_TRIGGER_NAME
           value: $(inputs.params.manual-trigger)
-        - name: REGION
-          value: $(inputs.params.region)
-        - name: DEVOPS_API
-          value: $(inputs.params.devops-api)
-        - name: API_KEY
-          value: $(inputs.params.apikey)
-        - name: API
-          value: $(inputs.params.api)
       command: ["/bin/sh", "-c"]
       args:
         - |
-          ibmcloud login --apikey $API_KEY -r $REGION;
+          echo "Build Number is $BUILD_NUMBER"
+          ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           curl -X POST \
-            "${DEVOPS_API}/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"\
+            "https://devops-api.${REGION}.devops.cloud.ibm.com/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"\
             -H "Accept: application/json" \
             -H "Content-Type: application/json" \
             -H "Authorization: ${TOKEN}" \

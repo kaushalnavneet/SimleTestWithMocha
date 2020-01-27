@@ -10,9 +10,6 @@ spec:
       description: manual trigger name of another tekton pipeline
     - name: apikey
       description: the ibmcloud api key
-    - name: devops-api
-      description: the ibmcloud devops-api endpoint
-      default: "https://devops-api.us-south.devops.cloud.ibm.com"
     - name: api
       description: the ibmcloud api endpoint
       default: "https://cloud.ibm.com"
@@ -20,6 +17,21 @@ spec:
       description: the ibmcloud login region
       default: "us-south"
   resourcetemplates:
+  # CD context defined as a configmap because it is immutable information
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: cd-config
+      data:
+        API: $(params.api)
+        REGION: $(params.region)
+    - apiVersion: v1
+      kind: Secret
+      metadata:
+        name: cd-secret
+      type: Opaque
+      stringData:
+        API_KEY: $(params.apikey)
     - apiVersion: tekton.dev/v1alpha1
       kind: PipelineRun
       metadata:
@@ -32,14 +44,6 @@ spec:
           value: $(params.another-pipeline-id)
         - name: manual-trigger
           value: $(params.manual-trigger)
-        - name: apikey
-          value: $(params.apikey)
-        - name: devops-api
-          value: $(params.devops-api)
-        - name: api
-          value: $(params.api)
-        - name: region
-          value: $(params.region)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
