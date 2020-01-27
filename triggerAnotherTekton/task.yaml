@@ -42,7 +42,7 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          echo "Build Number is $BUILD_NUMBER"
+          echo "Build Number if available is $BUILD_NUMBER"
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           curl -X POST \
