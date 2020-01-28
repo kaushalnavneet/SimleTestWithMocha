@@ -52,7 +52,10 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          echo $REPOSITORY
+          echo $TOOLCHAIN
+          echo "for TOOLCHAIN"
+          echo $TOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          echo "for MYTOOLCHAIN"
           echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           GIT_TOKEN_URL=$(echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
           echo "GIT_TOKEN_URL is $GIT_TOKEN_URL"

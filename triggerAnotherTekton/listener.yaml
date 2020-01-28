@@ -64,7 +64,7 @@ spec:
     - name: apikey
       description: the ibmcloud api key
       value: $(event.apikey)
-    - name: repository
+    - name: repository  # repository doesn't have to be in TriggerTemplate.params, but it has to be in resourcetemplates.PipelineRun.params
       value: $(event.repository)
 ---
 apiVersion: tekton.dev/v1alpha1
