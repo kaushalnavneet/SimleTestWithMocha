@@ -38,6 +38,11 @@ spec:
           secretKeyRef:
             name: cd-secret
             key: API_KEY
+      - name: MYTOOLCHAIN
+        valueFrom:
+          configMapKeyRef:
+            name: cd-config
+            key: MYTOOLCHAIN
   steps:
     - name: play-with-toolchain-object
       image: ibmcom/pipeline-base-image
@@ -47,7 +52,7 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          GIT_TOKEN_URL=$(echo $TOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
+          GIT_TOKEN_URL=$(echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
           echo "GIT_TOKEN_URL is $GIT_TOKEN_URL"
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
