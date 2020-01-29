@@ -48,6 +48,7 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
+          #!/bin/bash
           echo "for TOOLCHAIN"
           echo ${TOOLCHAIN//$'\\n'} | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           echo "for MYTOOLCHAIN"
