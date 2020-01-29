@@ -11,6 +11,7 @@ spec:
         description: manual trigger name of another tekton pipeline
       - name: repository
         description: the git repository url that we interested in
+      - name: toolchain-id
   stepTemplate:
     env:
       - name: API
@@ -65,12 +66,13 @@ spec:
       env:
         - name: REPOSITORY
           value: $(inputs.params.repository)
+        - name: TOOLCHAIN_ID
+          value: $(inputs.params.toolchain-id)
       command: ["/bin/sh", "-c"]
       args:
         - |
           echo "Testing env passing $PASSING_ENV"
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
-          TOOLCHAIN_ID=bf5fa00f-ddef-4298-b87b-aa8b6da0e1a6
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "https://dev.console.test.cloud.ibm.com/devops/toolchains/$TOOLCHAIN_ID?env_id=ibm:ys1:us-south"
           cat _toolchain.json 

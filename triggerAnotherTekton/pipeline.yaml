@@ -10,6 +10,7 @@ spec:
         description: manual trigger name of another tekton pipeline
       - name: repository
         description: the git repository url that we interested in
+      - name: toolchain-id
   tasks:
     - name: pipeline-trigger-another-pipeline
       taskRef:
@@ -21,3 +22,5 @@ spec:
           value: $(params.manual-trigger)
         - name: repository
           value: $(params.repository)
+        - name: toolchain-id
+          value: $(params.toolchain-id)
