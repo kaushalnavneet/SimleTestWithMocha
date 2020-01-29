@@ -54,6 +54,7 @@ spec:
         - |
           echo $TOOLCHAIN
           echo "for TOOLCHAIN"
+          PASSING_ENV="passing Env"
           echo $TOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           echo "for MYTOOLCHAIN"
           echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
@@ -67,6 +68,7 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
+          echo "Testing env passing $PASSING_ENV"
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOOLCHAIN_ID=bf5fa00f-ddef-4298-b87b-aa8b6da0e1a6
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
@@ -78,8 +80,7 @@ spec:
             echo "Toolchain with id $TOOLCHAIN_ID in region $REGION not found"
             exit 1
           fi
-          GIT_TOKEN_URL=$(cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
-          cat $GIT_TOKEN_URL
+          cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
       env:
