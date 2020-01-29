@@ -48,6 +48,8 @@ spec:
           value: $(params.manual-trigger)
         - name: repository
           value: $(params.repository)
+        - name: toolchain-id
+          value: $(params.toolchain-id)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
