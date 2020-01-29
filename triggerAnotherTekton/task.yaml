@@ -24,16 +24,11 @@ spec:
           configMapKeyRef:
             name: cd-config
             key: REGION
-      - name: BUILD_NUMBER
-        valueFrom:
-          configMapKeyRef:
-            name: toolchain
-            key: buildNumber
       - name: TOOLCHAIN
         valueFrom:
           configMapKeyRef:
             name: toolchain
-            key: toolchain
+            key: json
       - name: API_KEY
         valueFrom:
           secretKeyRef:
@@ -72,7 +67,7 @@ spec:
           cd /toolchain
           ls
           pwd
-          cat toolchain | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          cat json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
       volumeMounts:
         - mountPath: /toolchain
           name: toolchain-volume
@@ -110,7 +105,6 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          echo "Build Number if available is $BUILD_NUMBER"
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           curl -X POST \
