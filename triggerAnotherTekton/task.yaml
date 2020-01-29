@@ -78,10 +78,6 @@ spec:
             echo "Toolchain with id $TOOLCHAIN_ID in region $REGION not found"
             exit 1
           fi
-          if [[ "$REPOSITORY" != *.git ]]; then
-            echo "Adding .git suffix to Repository URL"
-            REPOSITORY="${REPOSITORY}.git"
-          fi
           GIT_TOKEN_URL=$(cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
           cat $GIT_TOKEN_URL
     - name: trigger-another-tekton-pipeline
