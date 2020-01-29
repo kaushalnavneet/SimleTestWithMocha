@@ -72,8 +72,7 @@ spec:
           cd /toolchain
           ls
           pwd
-          cat /toolchain/toolchain
-          cat /toolchain/toolchain | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          cat toolchain | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
       volumeMounts:
         - mountPath: /toolchain
           name: toolchain-volume
