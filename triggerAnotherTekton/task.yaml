@@ -69,7 +69,7 @@ spec:
         - |
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
-          curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "${API}/devops/toolchains/d7d315d7-38f2-4301-ac51-ec188e5b6475?env_id=ibm:yp:us-south"
+          curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "${API}/devops/toolchains/bf5fa00f-ddef-4298-b87b-aa8b6da0e1a6?env_id=ibm:ys1:us-south"
           cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
