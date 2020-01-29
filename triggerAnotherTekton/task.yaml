@@ -59,6 +59,18 @@ spec:
           echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           GIT_TOKEN_URL=$(echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
           echo "GIT_TOKEN_URL is $GIT_TOKEN_URL"
+    - name: get-toolchain-old-way
+      image: ibmcom/pipeline-base-image
+      env:
+        - name: REPOSITORY
+          value: $(inputs.params.repository)
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
+          TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
+          curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "${API}/devops/toolchains/d7d315d7-38f2-4301-ac51-ec188e5b6475?env_id=ibm:yp:us-south"
+          cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
       env:
@@ -74,9 +86,6 @@ spec:
           echo "Build Number if available is $BUILD_NUMBER"
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
-          curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: Basic YWVhYjY4NzctNjZjOC00NDU5LWIwN2ItMmQyNjcyYzk3MzNmOnsxMjh9ZWJhOGFmM2YxMDVlNTQ4MDY5MzIyYjFlZWQ4MTFkMDAqOGNjYzQwYzA0ZDZjZGM0NzhjMDZkNjNjZGY0YjVmYTE0MzA2MjhlMjBkYzViNzkxMDZkZDQ4MWE1M2Y2ZGU2Mjg3ZWVjOGQ2MzFhOWU5ZGMwNTU2YjQ3MzdjMDMxOTE3OGViNjM0MTAwNWRiZGMzMTcwNWQwNDUyMzBlOWE3NTMyZTZkOWIzZjNjZTZmMTMwOGExNTMxN2E2NDdkOWRjZGE2MzQxNzI3ZmMzODg4ZjY1NGRiODFlNGYwZjBkOGFiNWQwMTkxMjk1YWI0YTEwOTJmZmFlYjg4ODk0MGEwMWU5OGJmNDkxNjU2MTEyOWRiMGM4ZWVlNWMzYWU5NjcxY2I1NzlmMzAxYmU4ZjMzNzFmYTZiZjViZTA0NGViMWQx" "https://devops-api.us-south.devops.dev.cloud.ibm.com/v1/toolchains/d7d315d7-38f2-4301-ac51-ec188e5b6475?include=services"
-          cat _toolchain.json
-          cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           curl -X POST \
             "https://devops-api.${REGION}.devops.cloud.ibm.com/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"\
             -H "Accept: application/json" \
