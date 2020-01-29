@@ -48,10 +48,9 @@ spec:
       command: ["/bin/sh", "-c"]
       args:
         - |
-          echo $TOOLCHAIN
+          echo ${TOOLCHAIN//[$'\t\r\n ']}
           echo " for TOOLCHAIN"
-          PASSING_ENV="passing Env"
-          echo $TOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          echo ${TOOLCHAIN//[$'\t\r\n ']} | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           echo "for MYTOOLCHAIN"
           echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           GIT_TOKEN_URL=$(echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
