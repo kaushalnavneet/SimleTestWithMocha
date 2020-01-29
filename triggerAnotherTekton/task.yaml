@@ -49,9 +49,9 @@ spec:
       args:
         - |
           echo "for TOOLCHAIN"
-          echo ${TOOLCHAIN//[$'\t\r\n']} | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          echo ${TOOLCHAIN//[$'\n']} | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           echo "for MYTOOLCHAIN"
-          echo ${MYTOOLCHAIN//[$'\t\r\n']}  | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          echo ${MYTOOLCHAIN//[$'\n']}  | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
     - name: toolchain-object-from-volume
       image: ibmcom/pipeline-base-image
       env:
