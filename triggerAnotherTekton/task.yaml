@@ -68,9 +68,22 @@ spec:
       args:
         - |
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
+          TOOLCHAIN_ID=bf5fa00f-ddef-4298-b87b-aa8b6da0e1a6
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
-          curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "${API}/devops/toolchains/bf5fa00f-ddef-4298-b87b-aa8b6da0e1a6?env_id=ibm:ys1:us-south"
-          cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "${API}/devops/toolchains/$TOOLCHAIN_ID?env_id=ibm:ys1:us-south"
+          cat _toolchain.json 
+          if jq '.services' _toolchain.json > /dev/null 2>&1; then
+            echo "Found toolchain with id $TOOLCHAIN_ID in region $REGION"
+          else
+            echo "Toolchain with id $TOOLCHAIN_ID in region $REGION not found"
+            exit 1
+          fi
+          if [[ "$REPOSITORY" != *.git ]]; then
+            echo "Adding .git suffix to Repository URL"
+            REPOSITORY="${REPOSITORY}.git"
+          fi
+          GIT_TOKEN_URL=$(cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
+          cat $GIT_TOKEN_URL
     - name: trigger-another-tekton-pipeline
       image: ibmcom/pipeline-base-image
       env:
