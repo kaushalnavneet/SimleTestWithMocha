@@ -28,7 +28,7 @@ spec:
         valueFrom:
           configMapKeyRef:
             name: toolchain
-            key: json
+            key: toolchain.json
       - name: API_KEY
         valueFrom:
           secretKeyRef:
@@ -67,7 +67,7 @@ spec:
           cd /toolchain
           ls
           pwd
-          cat json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+          cat toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
       volumeMounts:
         - mountPath: /toolchain
           name: toolchain-volume
