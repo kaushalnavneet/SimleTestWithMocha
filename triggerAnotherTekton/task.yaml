@@ -33,7 +33,7 @@ spec:
         valueFrom:
           configMapKeyRef:
             name: toolchain
-            key: toolchain
+            key: json
       - name: API_KEY
         valueFrom:
           secretKeyRef:
@@ -61,6 +61,19 @@ spec:
           echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
           GIT_TOKEN_URL=$(echo $MYTOOLCHAIN | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url')
           echo "GIT_TOKEN_URL is $GIT_TOKEN_URL"
+    - name: toolchain-object-from-volume
+      image: ibmcom/pipeline-base-image
+      env:
+        - name: REPOSITORY
+          value: $(inputs.params.repository)
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          cat /toolchain/json
+          cat /toolchain/json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+      volumeMounts:
+        - mountPath: /toolchain
+          name: toolchain-volume
     - name: get-toolchain-old-way
       image: ibmcom/pipeline-base-image
       env:
@@ -104,3 +117,9 @@ spec:
             -H "Content-Type: application/json" \
             -H "Authorization: ${TOKEN}" \
             -d "{\"eventListener\":\"${MANUAL_TRIGGER_NAME}\"}"
+  volumes:
+    - name: toolchain-volume
+      configMap:
+        # Provide the name of the ConfigMap containing the files you want
+        # to add to the container
+        name: toolchain
