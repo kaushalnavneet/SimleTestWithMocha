@@ -16,6 +16,8 @@ spec:
     - name: region
       description: the ibmcloud login region
       default: "us-south"
+    - name: repository
+    - name: toolchain-id
   resourcetemplates:
   # CD context defined as a configmap because it is immutable information
     - apiVersion: v1
