@@ -18,6 +18,7 @@ spec:
       default: "us-south"
     - name: repository
     - name: toolchain-id
+      description: the toolchain id
   resourcetemplates:
   # CD context defined as a configmap because it is immutable information
     - apiVersion: v1
