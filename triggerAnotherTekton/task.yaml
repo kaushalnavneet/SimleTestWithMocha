@@ -90,7 +90,6 @@ spec:
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "https://dev.console.test.cloud.ibm.com/devops/toolchains/$TOOLCHAIN_ID?env_id=ibm:ys1:us-south"
-          cat _toolchain.json 
           if jq '.services' _toolchain.json > /dev/null 2>&1; then
             echo "Found toolchain with id $TOOLCHAIN_ID in region $REGION"
           else
@@ -113,7 +112,7 @@ spec:
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           curl -X POST \
-            "https://devops-api.${REGION}.devops.cloud.ibm.com/v1/tekton_pipelines/${ANOTHER_PIPELINE_ID}/runs"\
+            "https://devops-api.${REGION}.devops.cloud.ibm.com/v1/tekton-pipelines/${ANOTHER_PIPELINE_ID}/runs"\
             -H "Accept: application/json" \
             -H "Content-Type: application/json" \
             -H "Authorization: ${TOKEN}" \
