@@ -73,6 +73,7 @@ spec:
           ls
           pwd
           cat toolchain.json
+          printf "\n"
           cat toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
       volumeMounts:
         - mountPath: /toolchain
