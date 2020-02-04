@@ -59,6 +59,7 @@ spec:
       args:
         - |
           echo "for MYTOOLCHAIN"
+          echo "REPOSITORY is ${REPOSITORY}"
           echo ${MYTOOLCHAIN//$'\\n'}  | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
     - name: toolchain-object-from-volume
       image: ibmcom/pipeline-base-image

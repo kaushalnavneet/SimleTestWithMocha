@@ -17,7 +17,7 @@ spec:
       description: the ibmcloud login region
       default: "us-south"
     - name: repository
-      default: https://github.com/SidneyJiang/SimleTestWithMocha.git
+      default: "https://github.com/SidneyJiang/SimleTestWithMocha.git"
     - name: toolchain-id
       description: the toolchain id
   resourcetemplates:
