@@ -10,7 +10,7 @@ spec:
       - name: manual-trigger
         description: manual trigger name of another tekton pipeline
       - name: repository
-        description: the git repository url that we interested in
+        description: the git repository url that we interested in123
       - name: toolchain-id
   stepTemplate:
     env:
