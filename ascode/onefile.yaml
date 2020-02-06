@@ -41,7 +41,7 @@ spec:
     args: ['-c', 'cat /workspace/newworkspace/stuff'] # tests that new targetpath and previous task output is dumped
 ---
 #The Output of the first Task (git resource) create-file is given as an `Input`
-# to the next `Task` check-stuff-file-exists using`from` clause.
+# to the next `Task` check-stuff-file-exists using`from` clause.asdas
 
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
