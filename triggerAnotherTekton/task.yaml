@@ -53,20 +53,15 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.annotations['devops.cloud.ibm.com/build-number']
-        - name: TEKTON_ID
+        - name: RUN_ID
           valueFrom:
             fieldRef:
               fieldPath: metadata.annotations['devops.cloud.ibm.com/tekton-pipeline']
-        - name: PIPELINE_ID
-          valueFrom:
-            fieldRef:
-              fieldPath: ns.metadata.annotations['devops.cloud.ibm.com/tekton-pipeline']
       args:
         - |
           echo "UID is ${UID}"
           echo "BUILD_NUMBER is ${BUILD_NUMBER}"
-          echo "TEKTON_ID is ${TEKTON_ID}"
-          echo "PIPELINE_ID is ${PIPELINE_ID}"
+          echo "RUN_ID is ${RUN_ID}"
     - name: play-with-toolchain-object
       image: ibmcom/pipeline-base-image
       env:
