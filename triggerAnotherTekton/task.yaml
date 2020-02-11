@@ -44,6 +44,11 @@ spec:
       image: ibmcom/pipeline-base-image
       command: ["/bin/sh", "-c"]
       env:
+        - name: UID
+          valueFrom:
+          configMapKeyRef:
+            name: cd-config
+            key: UID
         - name: BUILD_NUMBER
           valueFrom:
             fieldRef:
@@ -54,7 +59,7 @@ spec:
               fieldPath: metadata.annotations['devops.cloud.ibm.com/tekton-pipeline']             
       args:
         - |
-          echo "uid is ${uid}"
+          echo "UID is ${UID}"
           echo "BUILD_NUMBER is ${BUILD_NUMBER}"
           echo "TEKTON_ID is ${TEKTON_ID}"
     - name: play-with-toolchain-object
