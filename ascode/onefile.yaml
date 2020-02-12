@@ -46,7 +46,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: output-pipeline-good
+  name: output-good
 spec:
   resources:
   - name: source-repo
@@ -109,7 +109,7 @@ spec:
           generatedBy: "triggers-example"
       spec:
         pipelineRef:
-            name: output-pipeline-good
+            name: output-good
         serviceAccount: 'default'
         params:
         - name: message
