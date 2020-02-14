@@ -144,7 +144,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: listener
+  name: onefile-listener
 spec:
   triggers:
     - binding:
@@ -158,7 +158,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: manual-listener
+  name: onefile-manual-listener
 spec:
   triggers:
     - binding:
