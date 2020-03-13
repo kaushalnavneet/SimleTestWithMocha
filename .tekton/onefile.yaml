@@ -22,7 +22,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
-  name: pipeline
+  name: pipeline-slack
 spec:
   tasks:
     - name: console-log-token
@@ -32,7 +32,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: template
+  name: template-slack
 spec:
   resourcetemplates:
     - apiVersion: v1
@@ -47,12 +47,12 @@ spec:
         name: pipelinerun-$(uid)
       spec:
         pipelineRef:
-            name: pipeline
+            name: pipeline-slack
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: binding
+  name: binding-slack
 spec:
   params:
     - name: slacktoken
@@ -65,6 +65,6 @@ metadata:
 spec:
   triggers:
     - binding:
-        name: binding
+        name: binding-slack
       template:
-        name: template
+        name: template-slack
