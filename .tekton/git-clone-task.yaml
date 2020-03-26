@@ -8,18 +8,12 @@ spec:
       - name: task-pvc
         description: the output pvc - this is where the cloned repository will be stored
       - name: deployBaseImage
-        default: us.icr.io/opentoolchain/cd-deploy-base:deploy
-  stepTemplate:
-    env:
-      - name: IDS_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: cd-secret
-            key: IDS_TOKEN
+        default: ibmcom/pipeline-base-image:latest
   steps:
   - name: clone-a-repo
     image: $(inputs.params.deployBaseImage)
     imagePullPolicy: Always
+    workingDir: /workspace
     command: ["/bin/sh", "-c"]
     args:
         - |
@@ -28,11 +22,16 @@ spec:
   - name: build
     image: $(inputs.params.deployBaseImage)
     imagePullPolicy: Always
+    workingDir: /workspace
     command: ["/bin/sh", "-c"]
     args:
         - |
+          echo "ls and pwd"
           ls
           pwd
+          echo "cd .. and ls"
+          cd ..
+          ls
     volumeMounts:
       - mountPath: /workspace
         name: task-volume
