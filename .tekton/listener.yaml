@@ -1,46 +1,18 @@
-# Task writes "some stuff" to a predefined path in the workspace git PipelineResource
-apiVersion: tekton.dev/v1alpha1
-kind: Task
-metadata:
-  name: echo-token
-spec:
-  stepTemplate:
-    env:
-      - name: SLACK_TOKEN
-        valueFrom:
-          configMapKeyRef:
-            name: slack-data
-            key: SLACK_TOKEN
-  steps:
-  - name: echo-slack-token
-    image: ubuntu
-    command: ["/bin/sh", "-c"]
-    args:
-        - |
-          echo "SLACK_TOKEN is ${SLACK_TOKEN}"
----
-apiVersion: tekton.dev/v1alpha1
-kind: Pipeline
-metadata:
-  name: pipeline-slack
-spec:
-  tasks:
-    - name: console-log-token
-      taskRef:
-        name: echo-token
----
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: template-slack
 spec:
+  params:
+    - name: triggerrepo
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
       metadata:
-        name: slack-data
+        name: trigger-data
       data:
         SLACK_TOKEN: $(params.slacktoken)
+        TRIGGER_REPO: $(params.triggerrepo)
     - apiVersion: tekton.dev/v1alpha1
       kind: PipelineRun
       metadata:

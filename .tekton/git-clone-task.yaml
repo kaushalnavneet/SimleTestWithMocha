@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: git-clone
+spec:
+  inputs:
+    params:
+      - name: task-pvc
+        description: the output pvc - this is where the cloned repository will be stored
+      - name: deployBaseImage
+        default: us.icr.io/opentoolchain/cd-deploy-base:deploy
+  stepTemplate:
+    env:
+      - name: IDS_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: cd-secret
+            key: IDS_TOKEN
+  steps:
+  - name: clone-a-repo
+    image: $(inputs.params.deployBaseImage)
+    imagePullPolicy: Always
+    command: ["/bin/sh", "-c"]
+    args:
+        - |
+          echo "Cloning repo"
+          git clone https://github.com/SidneyJiang/SimleTestWithMocha.git
+  - name: build
+    image: $(inputs.params.deployBaseImage)
+    imagePullPolicy: Always
+    command: ["/bin/sh", "-c"]
+    args:
+        - |
+          ls
+          pwd
+    volumeMounts:
+      - mountPath: /workspace
+        name: task-volume
+  volumes:
+    - name: task-volume
+      persistentVolumeClaim:
+        claimName: $(inputs.params.task-pvc)

@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: echo-token
+spec:
+  stepTemplate:
+    env:
+      - name: SLACK_TOKEN
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: SLACK_TOKEN
+      - name: TRIGGER_REPO
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: TRIGGER_REPO
+  steps:
+  - name: echo-slack-token
+    image: ubuntu
+    command: ["/bin/sh", "-c"]
+    args:
+        - |
+          echo "SLACK_TOKEN is ${SLACK_TOKEN}"
+          echo "TRIGGER_REPO is ${TRIGGER_REPO}"

@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: pipeline-slack
+spec:
+  tasks:
+    - name: console-log-token
+      taskRef:
+        name: echo-token
+    - name: clone-a-git
+      runAfter: [console-log-token]
+      params:
+      - name: task-pvc
+        value: $(params.pipeline-pvc)
+      taskRef:
+        name: git-clone
