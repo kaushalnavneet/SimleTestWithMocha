@@ -3,6 +3,8 @@ kind: Pipeline
 metadata:
   name: pipeline-slack
 spec:
+  params:
+    - name: pipeline-pvc
   tasks:
     - name: console-log-token
       taskRef:
