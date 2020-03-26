@@ -18,6 +18,9 @@ spec:
     args:
         - |
           echo "Cloning repo"
+          git config --global user.email "xinyij@us.ibm.com"
+          git config --global user.name "Sidney Jiang"
+          git config --global push.default matching
           git clone https://github.com/SidneyJiang/SimleTestWithMocha.git
   - name: build
     image: $(inputs.params.deployBaseImage)
