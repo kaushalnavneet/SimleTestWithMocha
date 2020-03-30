@@ -10,11 +10,11 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: TEXT
-      - name: PAYLOAD
+      - name: repository
         valueFrom:
           configMapKeyRef:
             name: trigger-data
-            key: PAYLOAD
+            key: repository
   steps:
   - name: echo-slack-text
     image: ubuntu
@@ -22,4 +22,4 @@ spec:
     args:
         - |
           echo "TEXT is ${TEXT}"
-          echo "PAYLOAD is ${PAYLOAD}"
+          echo "repository is ${repository}"

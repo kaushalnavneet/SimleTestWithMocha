@@ -3,8 +3,6 @@ kind: TriggerTemplate
 metadata:
   name: template-slack
 spec:
-  params:
-    - name: triggerrepo
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
@@ -12,8 +10,6 @@ spec:
         name: trigger-data
       data:
         SLACK_TOKEN: $(params.slacktext)
-        WEBHOOK_PAYLOAD: $(params.payload)
-        TRIGGER_REPO: $(params.triggerrepo)
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
@@ -37,6 +33,40 @@ spec:
             value: test-$(uid)-pvc
 ---
 apiVersion: tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: template-git
+spec:
+  resourcetemplates:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: trigger-data
+      data:
+        repository: $(params.repository)
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: test-$(uid)-pvc
+      spec:
+        resources:
+          requests:
+            storage:  5Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        name: pipelinerun-$(uid)
+      spec:
+        pipelineRef:
+            name: pipeline-generic
+        params:
+          - name: pipeline-pvc
+            value: test-$(uid)-pvc
+---
+apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: binding-slack
@@ -44,8 +74,15 @@ spec:
   params:
     - name: slacktext
       value: $(event.text)
-    - name: payload
-      value: $(event)
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: binding-git
+spec:
+  params:
+    - name: repository
+      value: $(event.repository)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
@@ -57,3 +94,14 @@ spec:
         name: binding-slack
       template:
         name: template-slack
+---
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: show-git-repository-listener
+spec:
+  triggers:
+    - binding:
+        name: binding-git
+      template:
+        name: template-git
