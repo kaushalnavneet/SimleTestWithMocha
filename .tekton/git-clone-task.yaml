@@ -11,17 +11,14 @@ spec:
         default: ibmcom/pipeline-base-image:latest
   steps:
   - name: clone-a-repo
-    image: $(inputs.params.deployBaseImage)
+    image: alpine/git
     imagePullPolicy: Always
     workingDir: /workspace
     command: ["/bin/sh", "-c"]
     args:
         - |
           echo "Cloning repo"
-          git config --global user.email "xinyij@us.ibm.com"
-          git config --global user.name "Sidney Jiang"
-          git config --global push.default matching
-          git clone https://github.com/SidneyJiang/SimleTestWithMocha.git
+          git clone -q -b master https://github.com/SidneyJiang/SimleTestWithMocha.git .
   - name: build
     image: $(inputs.params.deployBaseImage)
     imagePullPolicy: Always
