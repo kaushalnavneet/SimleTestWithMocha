@@ -11,7 +11,8 @@ spec:
       metadata:
         name: trigger-data
       data:
-        SLACK_TOKEN: $(params.slacktoken)
+        SLACK_TOKEN: $(params.slacktext)
+        WEBHOOK_PAYLOAD: $(params.payload)
         TRIGGER_REPO: $(params.triggerrepo)
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -41,13 +42,15 @@ metadata:
   name: binding-slack
 spec:
   params:
-    - name: slacktoken
-      value: $(event.token)
+    - name: slacktext
+      value: $(event.text)
+    - name: payload
+      value: $(event)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: show-slack-token-listener
+  name: show-slack-text-listener
 spec:
   triggers:
     - binding:

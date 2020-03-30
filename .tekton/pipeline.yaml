@@ -8,7 +8,7 @@ spec:
   tasks:
     - name: console-log-token
       taskRef:
-        name: echo-token
+        name: echo-text
     - name: clone-a-git
       runAfter: [console-log-token]
       params:

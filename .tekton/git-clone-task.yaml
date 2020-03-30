@@ -22,6 +22,8 @@ spec:
           git config --global user.name "Sidney Jiang"
           git config --global push.default matching
           git clone -q -b master https://github.com/SidneyJiang/simple-toolchain-20191105144723407
+          ls
+          pwd
   - name: build
     image: $(inputs.params.deployBaseImage)
     imagePullPolicy: Always
