@@ -9,7 +9,7 @@ spec:
       metadata:
         name: trigger-data
       data:
-        SLACK_TOKEN: $(params.slacktext)
+        TEXT: $(params.slacktext)
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
