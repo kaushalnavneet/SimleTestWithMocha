@@ -84,7 +84,7 @@ metadata:
 spec:
   params:
     - name: repository
-      value: $(event.repository)
+      value: $(event.repository.name)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
