@@ -11,7 +11,7 @@ spec:
         default: ibmcom/pipeline-base-image:latest
   steps:
   - name: clone-a-repo
-    image: alpine/git
+    image: $(inputs.params.deployBaseImage)
     imagePullPolicy: Always
     workingDir: /workspace
     command: ["/bin/sh", "-c"]

@@ -16,10 +16,10 @@ spec:
             name: trigger-data
             key: repository
   steps:
-  - name: echo-slack-text
+  - name: echo-text
     image: ubuntu
     command: ["/bin/sh", "-c"]
     args:
         - |
           echo "TEXT is '${TEXT}'"
-          echo "repository is ${repository}"
+          echo "repository is '${repository}'"
