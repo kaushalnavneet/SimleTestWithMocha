@@ -10,11 +10,16 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: TEXT
+      - name: repository
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: repository
   steps:
   - name: echo-slack-text
     image: ubuntu
     command: ["/bin/sh", "-c"]
     args:
         - |
-          echo "TEXT is ${TEXT}"
+          echo "TEXT is '${TEXT}'"
           echo "repository is ${repository}"

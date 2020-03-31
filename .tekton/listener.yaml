@@ -10,6 +10,7 @@ spec:
         name: trigger-data
       data:
         TEXT: $(params.slacktext)
+        repository: ""
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
@@ -44,6 +45,7 @@ spec:
         name: trigger-data
       data:
         repository: $(params.repository)
+        TEXT: ""
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
