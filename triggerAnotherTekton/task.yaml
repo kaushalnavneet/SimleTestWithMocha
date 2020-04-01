@@ -62,6 +62,7 @@ spec:
           echo "UID is ${UID}"
           echo "BUILD_NUMBER is ${BUILD_NUMBER}"
           echo "RUN_ID is ${RUN_ID}"
+          echo 'secured toolchain-id is ${toolchain-id}'
     - name: play-with-toolchain-object
       image: ibmcom/pipeline-base-image
       env:
