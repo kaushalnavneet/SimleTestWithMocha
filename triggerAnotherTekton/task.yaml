@@ -57,12 +57,14 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.annotations['devops.cloud.ibm.com/tekton-pipeline']
+        - name: TOOLCHAIN_ID
+          value: $(inputs.params.toolchain-id)
       args:
         - |
           echo "UID is ${UID}"
           echo "BUILD_NUMBER is ${BUILD_NUMBER}"
           echo "RUN_ID is ${RUN_ID}"
-          echo 'secured toolchain-id is ${toolchain-id}'
+          echo 'secured toolchain-id is ${TOOLCHAIN_ID}'
     - name: play-with-toolchain-object
       image: ibmcom/pipeline-base-image
       env:
