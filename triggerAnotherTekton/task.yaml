@@ -65,6 +65,23 @@ spec:
           echo "BUILD_NUMBER is ${BUILD_NUMBER}"
           echo "RUN_ID is ${RUN_ID}"
           echo 'secured toolchain-id is ${TOOLCHAIN_ID}'
+    - name: toolchain-object-from-volume
+      image: ibmcom/pipeline-base-image
+      env:
+        - name: REPOSITORY
+          value: $(inputs.params.repository)
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          cd /toolchain
+          ls
+          pwd
+          cat toolchain.json
+          printf "\n"
+          cat toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
+      volumeMounts:
+        - mountPath: /toolchain
+          name: toolchain-volume
     - name: play-with-toolchain-object
       image: ibmcom/pipeline-base-image
       env:
@@ -86,23 +103,6 @@ spec:
           echo "for MYTOOLCHAIN"
           echo "REPOSITORY is ${REPOSITORY}"
           echo ${MYTOOLCHAIN//$'\\n'}  | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
-    - name: toolchain-object-from-volume
-      image: ibmcom/pipeline-base-image
-      env:
-        - name: REPOSITORY
-          value: $(inputs.params.repository)
-      command: ["/bin/sh", "-c"]
-      args:
-        - |
-          cd /toolchain
-          ls
-          pwd
-          cat toolchain.json
-          printf "\n"
-          cat toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
-      volumeMounts:
-        - mountPath: /toolchain
-          name: toolchain-volume
     - name: get-toolchain-old-way
       image: ibmcom/pipeline-base-image
       env:
