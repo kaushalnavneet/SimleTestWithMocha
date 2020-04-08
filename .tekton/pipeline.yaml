@@ -5,6 +5,7 @@ metadata:
 spec:
   params:
     - name: pipeline-pvc
+      description: the pipeline pvc name
   tasks:
     - name: console-log-token
       taskRef:

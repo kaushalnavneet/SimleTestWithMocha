@@ -24,6 +24,9 @@ spec:
           git clone -q -b master https://github.com/SidneyJiang/simple-toolchain-20191105144723407
           ls
           pwd
+    volumeMounts:
+      - mountPath: /workspace
+        name: task-volume
   - name: build
     image: $(inputs.params.deployBaseImage)
     imagePullPolicy: Always
