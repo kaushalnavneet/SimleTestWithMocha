@@ -79,13 +79,13 @@ spec:
           ibmcloud login -a $API -r $REGION --apikey $API_KEY ;
           TOKEN=$(ibmcloud iam oauth-tokens --output JSON | jq -r .iam_token)
           curl -s -X GET -o _toolchain.json -H "Accept: application/json" -H "Authorization: ${TOKEN}" "https://console.cloud.ibm.com/devops/toolchains/$TOOLCHAIN_ID?env_id=ibm:yp:us-south"
+          cat _toolchain.json
           if jq '.services' _toolchain.json > /dev/null 2>&1; then
             echo "Found toolchain with id $TOOLCHAIN_ID in region $REGION"
           else
             echo "Toolchain with id $TOOLCHAIN_ID in region $REGION not found"
             exit 1
           fi
-          cat _toolchain.json
           cat _toolchain.json | jq -r --arg git_repo "$REPOSITORY" '.services[] | select (.parameters.repo_url==$git_repo) | .parameters.token_url'
     - name: toolchain-object-from-volume
       image: ibmcom/pipeline-base-image
