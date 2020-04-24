@@ -10,11 +10,16 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: TEXT
-      - name: repository
+      - name: number
         valueFrom:
           configMapKeyRef:
             name: trigger-data
-            key: repository
+            key: number
+      - name: merged
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: merged
   steps:
   - name: echo-text
     image: ubuntu
@@ -22,4 +27,5 @@ spec:
     args:
         - |
           echo "TEXT is '${TEXT}'"
-          echo "repository is '${repository}'"
+          echo "number is '${number}'"
+          echo "merged is '${merged}'"

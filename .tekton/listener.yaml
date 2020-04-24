@@ -44,7 +44,8 @@ spec:
       metadata:
         name: trigger-data
       data:
-        repository: $(params.repository)
+        number: $(params.number)
+        merged: $(params.merged)
         TEXT: ""
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -83,8 +84,10 @@ metadata:
   name: binding-git
 spec:
   params:
-    - name: repository
-      value: $(event.repository.name)
+    - name: number
+      value: $(event.pull_request.number)
+    - name: merged
+      value: $(event.pull_request.merged)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
