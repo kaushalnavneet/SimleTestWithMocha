@@ -20,6 +20,11 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: merged
+      - name: triggerparam
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: triggerparam
   steps:
   - name: echo-text
     image: ubuntu
@@ -29,3 +34,4 @@ spec:
           echo "TEXT is '${TEXT}'"
           echo "number is '${number}'"
           echo "merged is '${merged}'"
+          echo "triggerparam is '${triggerparam}'"
