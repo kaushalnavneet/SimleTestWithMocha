@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: template
@@ -20,6 +20,7 @@ spec:
       default: "https://github.com/SidneyJiang/SimleTestWithMocha.git"
     - name: toolchain-id
       description: the toolchain id
+    - name: myzzz
   resourcetemplates:
   # CD context defined as a configmap because it is immutable information
     - apiVersion: v1
@@ -55,6 +56,8 @@ spec:
           value: $(params.repository)
         - name: toolchain-id
           value: $(params.toolchain-id)
+        - name: myzzz
+          value: $(params.myzzz)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerBinding

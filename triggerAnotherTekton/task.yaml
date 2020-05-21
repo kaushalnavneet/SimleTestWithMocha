@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: trigger-another
@@ -12,6 +12,7 @@ spec:
       - name: repository
         description: the git repository url that we interested in123
       - name: toolchain-id
+      - name: myzzz
   stepTemplate:
     env:
       - name: API
@@ -65,6 +66,10 @@ spec:
           echo "BUILD_NUMBER is ${BUILD_NUMBER}"
           echo "RUN_ID is ${RUN_ID}"
           echo 'secured toolchain-id is ${TOOLCHAIN_ID}'
+          echo ${myzzz}
+          echo ${myzzz}
+          echo ${myzzz}
+          echo ${myzzz}
     - name: get-toolchain-old-way
       image: ibmcom/pipeline-base-image
       env:

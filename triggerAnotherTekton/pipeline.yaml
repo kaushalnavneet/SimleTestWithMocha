@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: pipeline
@@ -11,6 +11,7 @@ spec:
       - name: repository
         description: the git repository url that we interested in
       - name: toolchain-id
+      - name: myzzz
   tasks:
     - name: pipeline-trigger-another-pipeline
       taskRef:
@@ -24,3 +25,5 @@ spec:
           value: $(params.repository)
         - name: toolchain-id
           value: $(params.toolchain-id)
+        - name: myzzz
+          value: $(params.myzzz)
