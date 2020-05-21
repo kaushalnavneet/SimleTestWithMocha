@@ -82,7 +82,7 @@ spec:
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: triggerAnotherTekton-listener
+  name: triggeranothertekton-listener
 spec:
   triggers:
     - binding:

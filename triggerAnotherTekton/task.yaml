@@ -3,16 +3,15 @@ kind: Task
 metadata:
   name: trigger-another
 spec:
-  inputs:
-    params:
-      - name: another-pipeline-id
-        description: the pipeline Id of another tekton pipeline to trigger
-      - name: manual-trigger
-        description: manual trigger name of another tekton pipeline
-      - name: repository
-        description: the git repository url that we interested in123
-      - name: toolchain-id
-      - name: myzzz
+  params:
+    - name: another-pipeline-id
+      description: the pipeline Id of another tekton pipeline to trigger
+    - name: manual-trigger
+      description: manual trigger name of another tekton pipeline
+    - name: repository
+      description: the git repository url that we interested in123
+    - name: toolchain-id
+    - name: myzzz
   stepTemplate:
     env:
       - name: API
@@ -59,7 +58,9 @@ spec:
             fieldRef:
               fieldPath: metadata.annotations['devops.cloud.ibm.com/tekton-pipeline']
         - name: TOOLCHAIN_ID
-          value: $(inputs.params.toolchain-id)
+          value: $(params.toolchain-id)
+        - name: myzzz
+          value: $(params.myzzz)
       args:
         - |
           echo "UID is ${UID}"
@@ -74,9 +75,9 @@ spec:
       image: ibmcom/pipeline-base-image
       env:
         - name: REPOSITORY
-          value: $(inputs.params.repository)
+          value: $(params.repository)
         - name: TOOLCHAIN_ID
-          value: $(inputs.params.toolchain-id)
+          value: $(params.toolchain-id)
       command: ["/bin/sh", "-c"]
       args:
         - |
@@ -97,7 +98,7 @@ spec:
       image: ibmcom/pipeline-base-image
       env:
         - name: REPOSITORY
-          value: $(inputs.params.repository)
+          value: $(params.repository)
       command: ["/bin/sh", "-c"]
       args:
         - |
@@ -114,7 +115,7 @@ spec:
       image: ibmcom/pipeline-base-image
       env:
         - name: REPOSITORY
-          value: $(inputs.params.repository)
+          value: $(params.repository)
       command: ["/bin/sh", "-c"]
       args:
         - |
@@ -124,7 +125,7 @@ spec:
       image: ibmcom/pipeline-base-image
       env:
         - name: REPOSITORY
-          value: $(inputs.params.repository)
+          value: $(params.repository)
       command: ["/bin/bash", "-c"]
       args:
         - |
@@ -135,11 +136,11 @@ spec:
       image: ibmcom/pipeline-base-image
       env:
         - name: ANOTHER_PIPELINE_ID
-          value: $(inputs.params.another-pipeline-id)
+          value: $(params.another-pipeline-id)
         - name: MANUAL_TRIGGER_NAME
-          value: $(inputs.params.manual-trigger)
+          value: $(params.manual-trigger)
         - name: REPOSITORY
-          value: $(inputs.params.repository)
+          value: $(params.repository)
       command: ["/bin/sh", "-c"]
       args:
         - |
