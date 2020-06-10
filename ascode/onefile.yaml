@@ -1,5 +1,5 @@
 # Task writes "some stuff" to a predefined path in the workspace git PipelineResource
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1alpha123
 kind: Task
 metadata:
   name: create-file
