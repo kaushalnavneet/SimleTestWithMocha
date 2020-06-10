@@ -1,5 +1,5 @@
 # Task writes "some stuff" to a predefined path in the workspace git PipelineResource
-apiVersion2: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
   name: create-file
@@ -52,39 +52,18 @@ spec:
   - name: source-repo
     type: git
   tasks:
-  - name: first-create-file          # 1. create file
+  - name: first-create-file-1         # 1. create file
     taskRef:
       name: create-file
-    resources:
-      inputs:
-      - name: workspace
-        resource: source-repo
-      outputs:
-      - name: workspace
-        resource: source-repo
   - name: then-check                 # 2.  check file exists
     taskRef:
       name: check-stuff-file-exists
-    resources:
-      inputs:
-      - name: workspace
-        resource: source-repo
-        from: [first-create-file]
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: pipeline-template
 spec:
-  params:
-    - name: gitrevision
-      description: The git revision
-      default: master
-    - name: gitrepositoryurl
-      description: The git repository url
-    - name: message
-      description: The message to print
-      default: This is the default message
   resourcetemplates:
     - apiVersion: tekton.dev/v1alpha1
       kind: PipelineResource
@@ -109,7 +88,7 @@ spec:
           generatedBy: "triggers-example"
       spec:
         pipelineRef:
-            name: output-good-ascode-github
+            name: output-good-ascode-github-123
         serviceAccount: 'default'
         params:
         - name: message
