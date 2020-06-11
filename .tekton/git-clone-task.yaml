@@ -1,14 +1,13 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: git-clone
 spec:
-  inputs:
-    params:
-      - name: task-pvc
-        description: the output pvc - this is where the cloned repository will be stored
-      - name: deployBaseImage
-        default: ibmcom/pipeline-base-image:latest
+  params:
+    - name: task-pvc
+      description: the output pvc - this is where the cloned repository will be stored
+    - name: deployBaseImage
+      default: ibmcom/pipeline-base-image:latest
   steps:
   - name: clone-a-repo
     image: $(inputs.params.deployBaseImage)

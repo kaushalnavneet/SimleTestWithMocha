@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: template-slack
@@ -22,7 +22,7 @@ spec:
         volumeMode: Filesystem
         accessModes:
           - ReadWriteOnce
-    - apiVersion: tekton.dev/v1alpha1
+    - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
         name: pipelinerun-$(uid)
@@ -33,7 +33,7 @@ spec:
           - name: pipeline-pvc
             value: pipelinerun-$(uid)-pvc
 ---
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: template-git
@@ -62,7 +62,7 @@ spec:
         volumeMode: Filesystem
         accessModes:
           - ReadWriteOnce
-    - apiVersion: tekton.dev/v1alpha1
+    - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
         name: pipelinerun-$(uid)
@@ -73,7 +73,7 @@ spec:
           - name: pipeline-pvc
             value: pipelinerun-$(uid)-pvc
 ---
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: binding-slack
@@ -82,7 +82,7 @@ spec:
     - name: slacktext
       value: $(event.text)
 ---
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: binding-git
@@ -93,7 +93,7 @@ spec:
     - name: merged
       value: $(event.pull_request.merged)
 ---
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: show-slack-text-listener
@@ -104,7 +104,7 @@ spec:
       template:
         name: template-slack
 ---
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: show-git-repository-listener
