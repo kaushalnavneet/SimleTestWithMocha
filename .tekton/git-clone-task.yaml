@@ -10,7 +10,7 @@ spec:
       default: ibmcom/pipeline-base-image:latest
   steps:
   - name: clone-a-repo
-    image: $(inputs.params.deployBaseImage)
+    image: $(params.deployBaseImage)
     imagePullPolicy: Always
     workingDir: /workspace
     command: ["/bin/sh", "-c"]
@@ -27,7 +27,7 @@ spec:
       - mountPath: /workspace
         name: task-volume
   - name: build
-    image: $(inputs.params.deployBaseImage)
+    image: $(params.deployBaseImage)
     imagePullPolicy: Always
     workingDir: /workspace
     command: ["/bin/sh", "-c"]

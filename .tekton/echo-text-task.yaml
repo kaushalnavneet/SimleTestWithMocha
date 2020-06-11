@@ -3,6 +3,9 @@ kind: Task
 metadata:
   name: echo-text
 spec:
+  params:
+    - name: deployBaseImage
+      default: ibmcom/pipeline-base-image:latest
   stepTemplate:
     env:
       - name: TEXT
@@ -27,7 +30,7 @@ spec:
             key: triggerparam
   steps:
   - name: echo-text
-    image: ubuntu
+    image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
     args:
         - |

@@ -3,6 +3,9 @@ kind: Task
 metadata:
   name: cf-deployment
 spec:
+  params:
+    - name: deployBaseImage
+      default: ibmcom/pipeline-base-image:latest
   stepTemplate:
     env:
       - name: SLACK_TOKEN
@@ -17,7 +20,7 @@ spec:
             key: TRIGGER_REPO
   steps:
   - name: echo-slack-token
-    image: ubuntu
+    image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
     args:
         - |

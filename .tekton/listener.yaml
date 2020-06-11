@@ -38,9 +38,6 @@ kind: TriggerTemplate
 metadata:
   name: template-git
 spec:
-  params:
-    - name: triggerparam
-      description: a trigger params to pass in
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
@@ -49,7 +46,6 @@ spec:
       data:
         number: $(params.number)
         merged: $(params.merged)
-        triggerparam: $(params.triggerparam)
         TEXT: ""
     - apiVersion: v1
       kind: PersistentVolumeClaim
