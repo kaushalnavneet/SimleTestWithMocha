@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.003" tests="5" failures="3">
+  <testsuite name="Root Suite" timestamp="2020-07-09T18:19:37" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="TEST" timestamp="2020-07-09T18:19:37" tests="0" file="/Users/xinyijiang/IBM/PipelineRepos/SimleTestWithMocha/test/test.js" failures="0" time="0">
+  </testsuite>
+  <testsuite name="#indexOf()" timestamp="2020-07-09T18:19:37" tests="1" file="/Users/xinyijiang/IBM/PipelineRepos/SimleTestWithMocha/test/test.js" failures="0" time="0">
+    <testcase name="TEST #indexOf() should return -1 when the value is not present" time="0" classname="should return -1 when the value is not present">
+    </testcase>
+  </testsuite>
+  <testsuite name="equal to 1" timestamp="2020-07-09T18:19:37" tests="1" file="/Users/xinyijiang/IBM/PipelineRepos/SimleTestWithMocha/test/test.js" failures="1" time="0.002">
+    <testcase name="TEST equal to 1 show be 1" time="0.002" classname="show be 1">
+      <failure message="2 == 1" type="AssertionError"><![CDATA[AssertionError [ERR_ASSERTION]: 2 == 1
+    at Context.<anonymous> (test/test.js:13:14)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="this one fails" timestamp="2020-07-09T18:19:37" tests="3" file="/Users/xinyijiang/IBM/PipelineRepos/SimleTestWithMocha/test/test.js" failures="2" time="0.001">
+    <testcase name="TEST this one fails show passes" time="0.001" classname="show passes">
+      <failure message="2 == 1" type="AssertionError"><![CDATA[AssertionError [ERR_ASSERTION]: 2 == 1
+    at Context.<anonymous> (test/test.js:19:14)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+    <testcase name="TEST this one fails show fail2" time="0" classname="show fail2">
+    </testcase>
+    <testcase name="TEST this one fails show fail3" time="0" classname="show fail3">
+      <failure message="2 == 3" type="AssertionError"><![CDATA[AssertionError [ERR_ASSERTION]: 2 == 3
+    at Context.<anonymous> (test/test.js:27:14)
+    at processImmediate (internal/timers.js:456:21)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
