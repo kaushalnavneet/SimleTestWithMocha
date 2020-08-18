@@ -46,6 +46,9 @@ spec:
       data:
         number: $(params.number)
         merged: $(params.merged)
+        branch: $(params.branch)
+        revision: $(params.revision)
+        reponame: $(params.reponame)
         TEXT: ""
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -88,6 +91,12 @@ spec:
       value: $(event.pull_request.number)
     - name: merged
       value: $(event.pull_request.merged)
+    - name: branch
+      value: $(body.pull_request.base.ref)
+    - name: revision
+      value: $(body.after)
+    - name: reponame
+      value: $(body.repository.name)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener

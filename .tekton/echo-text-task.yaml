@@ -18,6 +18,21 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: number
+      - name: branch
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: branch
+      - name: revision
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: revision
+      - name: reponame
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: reponame
       - name: merged
         valueFrom:
           configMapKeyRef:
@@ -37,4 +52,7 @@ spec:
           echo "TEXT is '${TEXT}'"
           echo "number is '${number}'"
           echo "merged is '${merged}'"
+          echo "branch is '${branch}'"
+          echo "revision is '${revision}'"
+          echo "reponame is '${reponame}'"
           echo "triggerparam is '${triggerparam}'"
