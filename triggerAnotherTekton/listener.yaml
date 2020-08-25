@@ -18,8 +18,6 @@ spec:
       default: "us-south"
     - name: repository
       default: "https://github.com/SidneyJiang/SimleTestWithMocha.git"
-    - name: toolchain-id
-      description: the toolchain id
     - name: myzzz
   resourcetemplates:
   # CD context defined as a configmap because it is immutable information
