@@ -38,11 +38,6 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: merged
-      - name: triggerparam
-        valueFrom:
-          configMapKeyRef:
-            name: trigger-data
-            key: triggerparam
   steps:
   - name: echo-text
     image: $(params.deployBaseImage)
@@ -55,4 +50,3 @@ spec:
           echo "branch is '${branch}'"
           echo "revision is '${revision}'"
           echo "reponame is '${reponame}'"
-          echo "triggerparam is '${triggerparam}'"
