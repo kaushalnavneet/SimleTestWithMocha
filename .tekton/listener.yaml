@@ -73,6 +73,40 @@ spec:
             value: pipelinerun-$(uid)-pvc
 ---
 apiVersion: tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: template-manual
+spec:
+  resourcetemplates:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: trigger-data
+      data:
+        TEXT: "something to print"
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: pipelinerun-$(uid)-pvc
+      spec:
+        resources:
+          requests:
+            storage:  5Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        name: pipelinerun-$(uid)
+      spec:
+        pipelineRef:
+            name: pipeline-generic
+        params:
+          - name: pipeline-pvc
+            value: pipelinerun-$(uid)-pvc
+---
+apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: binding-slack
@@ -99,6 +133,11 @@ spec:
       value: $(body.repository.name)
 ---
 apiVersion: tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: binding-manual
+---
+apiVersion: tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: show-slack-text-listener
@@ -119,3 +158,14 @@ spec:
         name: binding-git
       template:
         name: template-git
+---
+apiVersion: tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: manual-listener
+spec:
+  triggers:
+    - binding:
+        name: binding-manual
+      template:
+        name: template-manual
