@@ -6,6 +6,8 @@ spec:
   params:
     - name: deployBaseImage
       default: ibmcom/pipeline-base-image:latest
+    - name: passdown
+      default: default_valiue
   stepTemplate:
     env:
       - name: TEXT
@@ -19,11 +21,17 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
         - |
-          export FROMSTEP1=a_good_token
+          echo "TEXT is '${TEXT}'"
+          TEXT=a_new_katen
+          echo "TEXT is '${TEXT}'"
+
+          echo "passdown is '${passdown}'"
+          passdown=a_new_katen
+          echo "passdown is '${passdown}'"
   - name: echo-text
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
     args:
         - |
           echo "TEXT is '${TEXT}'"
-          echo "FROMSTEP1 is '${FROMSTEP1}'"
+          echo "passdown is '${passdown}'"
