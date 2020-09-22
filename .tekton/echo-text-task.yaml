@@ -19,7 +19,7 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
         - |
-          export FROMSTEP1 = "a good token"
+          export FROMSTEP1=a_good_token
   - name: echo-text
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
