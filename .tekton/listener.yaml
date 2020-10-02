@@ -110,10 +110,6 @@ apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: binding-slack
-spec:
-  params:
-    - name: slacktext
-      value: $(event.text)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
