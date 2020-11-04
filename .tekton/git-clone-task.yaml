@@ -14,15 +14,15 @@ spec:
   - name: show-secrets
     image: alpine
     env:
-      - name: apikey-from-echo-text
+      - name: apikey
         value: $(params.apikey-from-echo-text)
-      - name: passdown-from-echo-text
+      - name: passdown
         value: $(params.passdown-from-echo-text)
     command: ["/bin/sh", "-c"]
     args:
         - |
-          echo apikey-from-echo-text is ${apikey-from-echo-text}
-          echo passdown-from-echo-text is ${passdown-from-echo-text}
+          echo apikey-from-echo-text is ${apikey}
+          echo passdown-from-echo-text is ${passdown}
   - name: clone-a-repo
     image: $(params.deployBaseImage)
     imagePullPolicy: Always
