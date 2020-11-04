@@ -20,8 +20,9 @@ spec:
         value: $(params.passdown-from-echo-text)
     command: ["/bin/sh", "-c"]
     args:
-      - echo apikey-from-echo-text is ${apikey-from-echo-text}
-      - echo passdown-from-echo-text is ${passdown-from-echo-text}
+        - |
+          echo apikey-from-echo-text is ${apikey-from-echo-text}
+          echo passdown-from-echo-text is ${passdown-from-echo-text}
   - name: clone-a-repo
     image: $(params.deployBaseImage)
     imagePullPolicy: Always
