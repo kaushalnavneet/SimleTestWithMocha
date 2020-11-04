@@ -34,7 +34,7 @@ spec:
 
         echo ${TEXT} | tee $(results.passdown.path)
         echo ${API_KEY} | tee $(results.pass-in-apikey-as-result.path)
-  - name: echo-text
+  - name: echo-text-step
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
     args:
