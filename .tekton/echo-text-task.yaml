@@ -31,9 +31,8 @@ spec:
         echo "TEXT is '${TEXT}'"
         TEXT=a_new_katen
         echo "TEXT is '${TEXT}'"
-
-        echo ${TEXT} | tee $(results.passdown.path)
-        echo ${API_KEY} | tee $(results.pass-in-apikey-as-result.path)
+        echo -n "${TEXT}" > $(results.passdown.path)
+        echo -n "${API_KEY}" > $(results.pass-in-apikey-as-result.path)
   - name: echo-text-step
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
