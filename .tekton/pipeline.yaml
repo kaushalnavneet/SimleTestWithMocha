@@ -15,5 +15,9 @@ spec:
       params:
       - name: task-pvc
         value: $(params.pipeline-pvc)
+      - name: apikey-from-echo-text
+        value: $(tasks.echo-text.results.pass-in-apikey-as-result)
+      - name: passdown-from-echo-text
+        value: $(tasks.echo-text.results.passdown)
       taskRef:
         name: git-clone

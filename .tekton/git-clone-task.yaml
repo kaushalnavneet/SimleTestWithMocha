@@ -8,7 +8,20 @@ spec:
       description: the output pvc - this is where the cloned repository will be stored
     - name: deployBaseImage
       default: ibmcom/pipeline-base-image:latest
+    - name: apikey-from-echo-text
+    - name: passdown-from-echo-text
   steps:
+  - name: show-secrets
+    image: alpine
+    env:
+      - name: apikey-from-echo-text
+        value: $(params.apikey-from-echo-text)
+      - name: passdown-from-echo-text
+        value: $(params.passdown-from-echo-text)
+    command: ["/bin/sh", "-c"]
+    args:
+      - echo apikey-from-echo-text is ${apikey-from-echo-text}
+      - echo passdown-from-echo-text is ${passdown-from-echo-text}
   - name: clone-a-repo
     image: $(params.deployBaseImage)
     imagePullPolicy: Always

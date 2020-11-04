@@ -85,6 +85,13 @@ spec:
       data:
         TEXT: "something to print"
     - apiVersion: v1
+      kind: Secret
+      metadata:
+        name: cd-secret
+      type: Opaque
+      stringData:
+        API_KEY: $(params.apikey)
+    - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
         name: pipelinerun-$(uid)-pvc

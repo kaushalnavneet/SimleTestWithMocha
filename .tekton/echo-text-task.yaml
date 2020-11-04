@@ -6,8 +6,6 @@ spec:
   params:
     - name: deployBaseImage
       default: ibmcom/pipeline-base-image:latest
-    - name: passdown
-      default: default_valiue
   stepTemplate:
     env:
       - name: TEXT
@@ -15,19 +13,27 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: TEXT
+      - name: API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: cd-secret
+            key: API_KEY
+  results:
+    - name: pass-in-apikey-as-result
+      description: APIKEY passed in
+    - name: passdown
+      description: something to pass down
   steps:
   - name: prepare
-    image: $(params.deployBaseImage)
-    command: ["/bin/sh", "-c"]
-    args:
-        - |
-          echo "TEXT is '${TEXT}'"
-          TEXT=a_new_katen
-          echo "TEXT is '${TEXT}'"
+    image: bash:latest
+    script: |
+        #!/usr/bin/env bash
+        echo "TEXT is '${TEXT}'"
+        TEXT=a_new_katen
+        echo "TEXT is '${TEXT}'"
 
-          echo "passdown is '${passdown}'"
-          passdown=a_new_katen
-          echo "passdown is '${passdown}'"
+        echo ${TEXT} | tee $(results.passdown.path)
+        echo ${API_KEY} | tee $(results.pass-in-apikey-as-result.path)
   - name: echo-text
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
@@ -35,3 +41,5 @@ spec:
         - |
           echo "TEXT is '${TEXT}'"
           echo "passdown is '${passdown}'"
+          echo results.name.path is $(results.passdown.path)
+          echo API_KEY is $(results.pass-in-apikey-as-result.path)
