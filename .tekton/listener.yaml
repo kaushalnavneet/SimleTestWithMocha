@@ -77,6 +77,8 @@ kind: TriggerTemplate
 metadata:
   name: template-manual
 spec:
+  params:
+    - name: secretValue
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
@@ -112,6 +114,8 @@ spec:
         params:
           - name: pipeline-pvc
             value: pipelinerun-$(uid)-pvc
+          - name: secretValue
+            value: $(params.secretValue)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding

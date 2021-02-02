@@ -6,6 +6,7 @@ spec:
   params:
     - name: deployBaseImage
       default: ibmcom/pipeline-base-image:latest
+    - name: secretValue
   stepTemplate:
     env:
       - name: TEXT
@@ -26,6 +27,9 @@ spec:
   steps:
   - name: prepare
     image: bash:latest
+    env:
+      - name: SECRET_VALUE
+        value: $(params.secretValue)
     script: |
         #!/usr/bin/env bash
         echo "TEXT is '${TEXT}'"
@@ -33,6 +37,7 @@ spec:
         echo "TEXT is '${TEXT}'"
         echo -n "${TEXT}" > $(results.passdown.path)
         echo -n "${API_KEY}" > $(results.pass-in-apikey-as-result.path)
+        echo -n "${SECRET_VALUE}"
   - name: echo-text-step
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
