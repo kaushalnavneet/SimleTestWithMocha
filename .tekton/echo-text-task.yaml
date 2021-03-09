@@ -14,11 +14,6 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: TEXT
-      - name: API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cd-secret
-            key: API_KEY
   results:
     - name: pass-in-apikey-as-result
       description: APIKEY passed in
