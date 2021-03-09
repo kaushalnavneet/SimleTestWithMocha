@@ -7,6 +7,7 @@ spec:
     - name: deployBaseImage
       default: ibmcom/pipeline-base-image:latest
     - name: secretValue
+    - name: eventpayload
   stepTemplate:
     env:
       - name: TEXT
@@ -14,11 +15,6 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: TEXT
-      - name: EVENT
-        valueFrom:
-          configMapKeyRef:
-            name: trigger-data
-            key: event
       - name: API_KEY
         valueFrom:
           secretKeyRef:
@@ -35,9 +31,11 @@ spec:
     env:
       - name: SECRET_VALUE
         value: $(params.secretValue)
+      - name: EVENT_PAYLOAD
+        value: $(params.eventpayload)
     script: |
         #!/usr/bin/env bash
-        echo -n "${EVENT}"
+        echo "EVENT_PAYLOAD is '${EVENT_PAYLOAD}'"
         echo "TEXT is '${TEXT}'"
         TEXT=a_new_katen
         echo "TEXT is '${TEXT}'"

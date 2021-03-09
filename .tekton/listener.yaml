@@ -45,7 +45,6 @@ spec:
         name: trigger-data
       data:
         number: $(params.number)
-        event: $(params.event)
         merged: $(params.merged)
         branch: $(params.branch)
         revision: $(params.revision)
@@ -72,6 +71,8 @@ spec:
         params:
           - name: pipeline-pvc
             value: pipelinerun-$(uid)-pvc
+          - name: eventpayload
+            value: $(params.eventpayload)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
@@ -133,7 +134,7 @@ spec:
       value: $(event.pull_request.number)
     - name: merged
       value: $(event.pull_request.merged)
-    - name: event
+    - name: eventpayload
       value: $(event)
     - name: branch
       value: $(body.pull_request.base.ref)

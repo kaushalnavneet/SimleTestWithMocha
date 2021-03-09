@@ -7,6 +7,7 @@ spec:
     - name: pipeline-pvc
       description: the pipeline pvc name
     - name: secretValue
+    - name: eventpayload
   tasks:
     - name: console-log-token
       taskRef:
@@ -14,6 +15,8 @@ spec:
       params:
       - name: secretValue
         value: $(params.secretValue)
+      - name: eventpayload
+        value: $(params.eventpayload)
     - name: clone-a-git
       runAfter: [console-log-token]
       params:
