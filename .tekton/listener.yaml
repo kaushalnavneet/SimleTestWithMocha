@@ -38,6 +38,8 @@ kind: TriggerTemplate
 metadata:
   name: template-git
 spec:
+  params:
+    - name: eventpayload
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
