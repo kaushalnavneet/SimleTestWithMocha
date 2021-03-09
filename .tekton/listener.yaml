@@ -45,6 +45,7 @@ spec:
         name: trigger-data
       data:
         number: $(params.number)
+        event: $(params.event)
         merged: $(params.merged)
         branch: $(params.branch)
         revision: $(params.revision)
@@ -132,6 +133,8 @@ spec:
       value: $(event.pull_request.number)
     - name: merged
       value: $(event.pull_request.merged)
+    - name: event
+      value: $(event)
     - name: branch
       value: $(body.pull_request.base.ref)
     - name: revision
