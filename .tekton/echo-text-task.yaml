@@ -35,7 +35,9 @@ spec:
         printf "\n"
         echo ${EVENT_PAYLOAD}
         printf "\n"
-        echo ${EVENT_PAYLOAD} | jq
+        echo ${EVENT_PAYLOAD} | jq .ref
+        printf "\n"
+        echo ${TEXT} | jq
         printf "\n"
         echo '${TEXT}' | jq
         echo -n "${TEXT}" > $(results.passdown.path)
@@ -48,11 +50,11 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
         - |
-          echo '${TEXT}' | jq
+          echo ${TEXT} | jq
           printf "\n"
           cat /trigger-data/payload.json
           printf "\n"
-          cat /trigger-data/payload.json | jq
+          cat /trigger-data/payload.json | jq .ref
           printf "\n"
           echo "passdown is '${passdown}'"
           echo results.name.path is $(results.passdown.path)
