@@ -38,6 +38,9 @@ spec:
         echo "TEXT is '${TEXT}'"
         echo -n "${TEXT}" > $(results.passdown.path)
         echo -n "${API_KEY}" > $(results.pass-in-apikey-as-result.path)
+    volumeMounts:
+      - mountPath: /trigger-data
+        name: trigger-data
   - name: echo-text-step
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
