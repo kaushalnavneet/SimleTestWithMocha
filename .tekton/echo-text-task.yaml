@@ -31,8 +31,13 @@ spec:
         value: $(params.eventpayload)
     script: |
         #!/usr/bin/env bash
-        echo '${EVENT_PAYLOAD}' | jq
-        echo "TEXT is '${TEXT}'"
+        echo '${EVENT_PAYLOAD}'
+        printf "\n"
+        echo ${EVENT_PAYLOAD}
+        printf "\n"
+        echo ${EVENT_PAYLOAD} | jq
+        printf "\n"
+        echo '${TEXT}' | jq
         echo -n "${TEXT}" > $(results.passdown.path)
         echo -n "${API_KEY}" > $(results.pass-in-apikey-as-result.path)
     volumeMounts:
@@ -43,9 +48,12 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
         - |
-          echo "TEXT is '${TEXT}'"
+          echo '${TEXT}' | jq
+          printf "\n"
+          cat /trigger-data/payload.json
           printf "\n"
           cat /trigger-data/payload.json | jq
+          printf "\n"
           echo "passdown is '${passdown}'"
           echo results.name.path is $(results.passdown.path)
           echo API_KEY is $(results.pass-in-apikey-as-result.path)
