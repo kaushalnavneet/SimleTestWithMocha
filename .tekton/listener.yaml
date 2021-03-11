@@ -52,6 +52,8 @@ spec:
         revision: $(params.revision)
         reponame: $(params.reponame)
         TEXT: ""
+        payload.json: |
+          $(params.eventpayload)
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:

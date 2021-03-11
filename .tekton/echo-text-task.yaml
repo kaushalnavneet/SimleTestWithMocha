@@ -14,6 +14,10 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: TEXT
+  volumes:
+    - name: trigger-data
+      configMap:
+        name: trigger-data
   results:
     - name: pass-in-apikey-as-result
       description: APIKEY passed in
@@ -21,13 +25,14 @@ spec:
       description: something to pass down
   steps:
   - name: prepare
-    image: bash:latest
+    image: ibmcom/pipeline-base-image
     env:
       - name: EVENT_PAYLOAD
         value: $(params.eventpayload)
     script: |
         #!/usr/bin/env bash
         echo "EVENT_PAYLOAD is '${EVENT_PAYLOAD}'"
+        cat /trigger-data/payload.json
         echo "TEXT is '${TEXT}'"
         TEXT=a_new_katen
         echo "TEXT is '${TEXT}'"
