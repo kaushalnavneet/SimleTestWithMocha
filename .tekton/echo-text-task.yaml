@@ -33,8 +33,6 @@ spec:
         #!/usr/bin/env bash
         echo "EVENT_PAYLOAD is '${EVENT_PAYLOAD}'" | jq
         echo "TEXT is '${TEXT}'"
-        TEXT=a_new_katen
-        echo "TEXT is '${TEXT}'"
         echo -n "${TEXT}" > $(results.passdown.path)
         echo -n "${API_KEY}" > $(results.pass-in-apikey-as-result.path)
     volumeMounts:

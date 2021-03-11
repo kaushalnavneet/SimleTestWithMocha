@@ -51,7 +51,7 @@ spec:
         branch: $(params.branch)
         revision: $(params.revision)
         reponame: $(params.reponame)
-        TEXT: ""
+        TEXT: '{"good":"hello\nworld"}'
         payload.json: |
           $(params.eventpayload)
     - apiVersion: v1
