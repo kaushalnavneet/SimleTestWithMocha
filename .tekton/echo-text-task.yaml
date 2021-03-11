@@ -31,8 +31,7 @@ spec:
         value: $(params.eventpayload)
     script: |
         #!/usr/bin/env bash
-        echo "EVENT_PAYLOAD is '${EVENT_PAYLOAD}'"
-        cat /trigger-data/payload.json
+        echo "EVENT_PAYLOAD is '${EVENT_PAYLOAD}'" | jq
         echo "TEXT is '${TEXT}'"
         TEXT=a_new_katen
         echo "TEXT is '${TEXT}'"
@@ -47,6 +46,11 @@ spec:
     args:
         - |
           echo "TEXT is '${TEXT}'"
+          printf "\n"
+          cat /trigger-data/payload.json | jq
           echo "passdown is '${passdown}'"
           echo results.name.path is $(results.passdown.path)
           echo API_KEY is $(results.pass-in-apikey-as-result.path)
+    volumeMounts:
+      - mountPath: /trigger-data
+        name: trigger-data
