@@ -45,6 +45,7 @@ spec:
   - name: echo-text-step-0
     image: ibmcom/pipeline-base-image
     script: |
+        #!/usr/bin/env bash
         echo ${TEXT} | jq
         printf "\n"
         cat /trigger-data/payload.json
@@ -61,6 +62,7 @@ spec:
         name: trigger-data
   - name: echo-text-step-1
     image: ibmcom/pipeline-base-image
+    command: ["/bin/bash", "-c"]
     args:
         - |
           echo ${TEXT} | jq
