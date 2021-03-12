@@ -46,7 +46,7 @@ spec:
     image: ibmcom/pipeline-base-image
     script: |
         #!/usr/bin/env bash
-        echo ${TEXT} | jq
+        echo ${TEXT} | jq .good
         printf "\n"
         cat /trigger-data/payload.json
         printf "\n"
@@ -65,7 +65,7 @@ spec:
     command: ["/bin/bash", "-c"]
     args:
         - |
-          echo ${TEXT} | jq
+          echo ${TEXT} | jq .good
           printf "\n"
           cat /trigger-data/payload.json
           printf "\n"
@@ -84,7 +84,7 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
         - |
-          echo ${TEXT} | jq
+          echo ${TEXT} | jq .good
           printf "\n"
           cat /trigger-data/payload.json
           printf "\n"
