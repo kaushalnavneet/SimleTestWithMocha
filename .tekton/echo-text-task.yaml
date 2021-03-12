@@ -31,8 +31,6 @@ spec:
         value: $(params.eventpayload)
     script: |
         #!/usr/bin/env bash
-        echo '${EVENT_PAYLOAD}'
-        printf "\n"
         echo ${EVENT_PAYLOAD}
         printf "\n"
         echo ${EVENT_PAYLOAD} | jq .ref
@@ -44,7 +42,42 @@ spec:
     volumeMounts:
       - mountPath: /trigger-data
         name: trigger-data
-  - name: echo-text-step
+  - name: echo-text-step-0
+    image: ibmcom/pipeline-base-image
+    script: |
+        echo ${TEXT} | jq
+        printf "\n"
+        cat /trigger-data/payload.json
+        printf "\n"
+        cat /trigger-data/payload.json | jq .ref
+        printf "\n"
+        cat /trigger-data/TEXT | jq .good
+        printf "\n"
+        echo "passdown is '${passdown}'"
+        echo results.name.path is $(results.passdown.path)
+        echo API_KEY is $(results.pass-in-apikey-as-result.path)
+    volumeMounts:
+      - mountPath: /trigger-data
+        name: trigger-data
+  - name: echo-text-step-1
+    image: ibmcom/pipeline-base-image
+    args:
+        - |
+          echo ${TEXT} | jq
+          printf "\n"
+          cat /trigger-data/payload.json
+          printf "\n"
+          cat /trigger-data/payload.json | jq .ref
+          printf "\n"
+          cat /trigger-data/TEXT | jq .good
+          printf "\n"
+          echo "passdown is '${passdown}'"
+          echo results.name.path is $(results.passdown.path)
+          echo API_KEY is $(results.pass-in-apikey-as-result.path)
+    volumeMounts:
+      - mountPath: /trigger-data
+        name: trigger-data
+  - name: echo-text-step-2
     image: $(params.deployBaseImage)
     command: ["/bin/sh", "-c"]
     args:
