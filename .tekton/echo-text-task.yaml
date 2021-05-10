@@ -36,7 +36,7 @@ spec:
         value: $(params.eventpayload)
     script: |
         #!/usr/bin/env bash
-        echo 'BRANCH is ${BRANCH}'
+        echo ${BRANCH}
         echo ${EVENT_PAYLOAD}
         printf "\n"
         echo ${EVENT_PAYLOAD} | jq .ref
