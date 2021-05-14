@@ -9,6 +9,14 @@ spec:
     - name: eventpayload
   stepTemplate:
     env:
+      - name: PIPELINE_ID
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-id']
+      - name: PIPELINE_RUN_URL
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-run-url']
       - name: TEXT
         valueFrom:
           configMapKeyRef:
@@ -36,6 +44,8 @@ spec:
         value: $(params.eventpayload)
     script: |
         #!/usr/bin/env bash
+        echo ${PIPELINE_ID}
+        echo ${PIPELINE_RUN_URL}
         echo ${BRANCH}
         echo ${EVENT_PAYLOAD}
         printf "\n"
