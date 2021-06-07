@@ -150,8 +150,6 @@ spec:
       value: $(body.after)
     - name: reponame
       value: $(body.repository.name)
-    - name: run-db
-      value: $(event.run-db)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
