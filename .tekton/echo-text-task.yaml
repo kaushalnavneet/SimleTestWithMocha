@@ -7,6 +7,7 @@ spec:
     - name: deployBaseImage
       default: ibmcom/pipeline-base-image:latest
     - name: eventpayload
+      type: string
     - name: run-db
       type: string
       default: 'True'
@@ -30,8 +31,6 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: branch
-      - name: RUN_DB
-        value: $(params.run-db)
   volumes:
     - name: trigger-data
       configMap:
@@ -47,9 +46,11 @@ spec:
     env:
       - name: EVENT_PAYLOAD
         value: $(params.eventpayload)
+      - name: RUN_DB
+        value: $(params.run-db)
     script: |
         #!/usr/bin/env bash
-        echo "RUN_DB is ${RUN_DB}""
+        echo "RUN_DB is ${RUN_DB}"
         echo ${PIPELINE_ID}
         echo ${PIPELINE_RUN_URL}
         echo ${BRANCH}
