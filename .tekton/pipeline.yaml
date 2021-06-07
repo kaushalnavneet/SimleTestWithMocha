@@ -7,6 +7,8 @@ spec:
     - name: pipeline-pvc
       description: the pipeline pvc name
     - name: eventpayload
+    - name: run-db
+      default: 'True'
   tasks:
     - name: console-log-token
       taskRef:
@@ -14,6 +16,8 @@ spec:
       params:
       - name: eventpayload
         value: $(params.eventpayload)
+      - name: run-db
+        value: $(params.run-db)
     - name: clone-a-git
       runAfter: [console-log-token]
       params:

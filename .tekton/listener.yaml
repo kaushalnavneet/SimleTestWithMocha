@@ -40,6 +40,8 @@ metadata:
 spec:
   params:
     - name: eventpayload
+    - name: run-db
+      default: 'True'
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
@@ -77,6 +79,8 @@ spec:
             value: pipelinerun-$(uid)-pvc
           - name: eventpayload
             value: $(params.eventpayload)
+          - name: run-db
+            value: $(params.run-db)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
@@ -146,6 +150,8 @@ spec:
       value: $(body.after)
     - name: reponame
       value: $(body.repository.name)
+    - name: run-db
+      value: $(event.run-db)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
