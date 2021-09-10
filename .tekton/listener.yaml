@@ -154,6 +154,8 @@ spec:
       value: $(body.after)
     - name: reponame
       value: $(body.repository.name)
+    - name: pipeline-debug
+      value: $(event.pipeline-debug)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
