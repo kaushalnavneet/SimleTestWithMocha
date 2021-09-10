@@ -43,7 +43,6 @@ spec:
     - name: run-db
       default: 'True'
     - name: pipeline-debug
-      default: $(params.pipeline-debug)
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
