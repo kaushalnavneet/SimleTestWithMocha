@@ -9,6 +9,8 @@ spec:
     - name: eventpayload
     - name: run-db
       default: 'True'
+    - name: pipeline-debug
+      default: 'From-Pipeline'
   tasks:
     - name: console-log-token
       taskRef:
@@ -18,6 +20,8 @@ spec:
         value: $(params.eventpayload)
       - name: run-db
         value: $(params.run-db)
+      - name: pipeline-debug
+        value: $(params.pipeline-debug)
     - name: clone-a-git
       runAfter: [console-log-token]
       params:

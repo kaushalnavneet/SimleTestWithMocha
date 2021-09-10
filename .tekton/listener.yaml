@@ -42,6 +42,8 @@ spec:
     - name: eventpayload
     - name: run-db
       default: 'True'
+    - name: pipeline-debug
+      default: $(params.pipeline-debug)
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
@@ -81,6 +83,8 @@ spec:
             value: $(params.eventpayload)
           - name: run-db
             value: $(params.run-db)
+          - name: pipeline-debug
+            value: $(event.pipeline-debug)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate

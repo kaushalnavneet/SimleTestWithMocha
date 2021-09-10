@@ -11,6 +11,9 @@ spec:
     - name: run-db
       type: string
       default: 'True'
+    - name: pipeline-debug
+      type: string
+      default: 'From Task'
   stepTemplate:
     env:
       - name: PIPELINE_ID
@@ -48,9 +51,12 @@ spec:
         value: $(params.eventpayload)
       - name: RUN_DB
         value: $(params.run-db)
+      - name: PIPELINE_DEBUG
+        value: $(params.pipeline-debug)
     script: |
         #!/usr/bin/env bash
         echo "RUN_DB is ${RUN_DB}"
+        echo "PIPELINE_DEBUG is ${PIPELINE_DEBUG}"
         echo ${PIPELINE_ID}
         echo ${PIPELINE_RUN_URL}
         echo ${BRANCH}
