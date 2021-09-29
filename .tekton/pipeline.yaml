@@ -14,7 +14,7 @@ spec:
   tasks:
     - name: console-log-token
       taskRef:
-        name: echo-text-retires
+        name: echo-text
       retries: 5
       params:
       - name: eventpayload
