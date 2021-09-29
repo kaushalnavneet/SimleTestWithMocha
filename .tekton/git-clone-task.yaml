@@ -53,6 +53,7 @@ spec:
           echo "cd .. and ls"
           cd ..
           ls
+          exit 1
     volumeMounts:
       - mountPath: /workspace
         name: task-volume

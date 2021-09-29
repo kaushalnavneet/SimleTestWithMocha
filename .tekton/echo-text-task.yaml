@@ -159,6 +159,7 @@ spec:
           echo "passdown is '${passdown}'"
           echo results.name.path is $(results.passdown.path)
           echo API_KEY is $(results.pass-in-apikey-as-result.path)
+          exit 1
     volumeMounts:
       - mountPath: /trigger-data
         name: trigger-data
