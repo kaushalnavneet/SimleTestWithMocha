@@ -1,0 +1,66 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: echo-text-retires
+spec:
+  params:
+    - name: deployBaseImage
+      default: ibmcom/pipeline-base-image:latest
+    - name: eventpayload
+      type: string
+    - name: run-db
+      type: string
+      default: 'True'
+    - name: pipeline-debug
+      type: string
+      default: 'From Task'
+  stepTemplate:
+    env:
+      - name: PIPELINE_ID
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-id']
+      - name: PIPELINE_RUN_URL
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-run-url']
+      - name: TEXT
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: TEXT
+      - name: BRANCH
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: branch
+  volumes:
+    - name: trigger-data
+      configMap:
+        name: trigger-data
+  results:
+    - name: pass-in-apikey-as-result
+      description: APIKEY passed in
+    - name: passdown
+      description: something to pass down
+  steps:
+  - name: echo-text-step
+    image: $(params.deployBaseImage)
+    command: ["/bin/sh", "-c"]
+    args:
+        - |
+          echo ${TEXT} | jq .good
+          printf "\n"
+          cat /trigger-data/payload.json
+          printf "\n"
+          cat /trigger-data/payload.json | jq .ref
+          printf "\n"
+          cat /trigger-data/TEXT | jq .good
+          printf "\n"
+          echo "passdown is '${passdown}'"
+          echo results.name.path is $(results.passdown.path)
+          echo API_KEY is $(results.pass-in-apikey-as-result.path)
+          exit 1
+    volumeMounts:
+      - mountPath: /trigger-data
+        name: trigger-data
