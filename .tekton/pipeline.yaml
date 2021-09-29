@@ -15,7 +15,7 @@ spec:
     - name: console-log-token
       taskRef:
         name: echo-text
-      retries: 1
+      retries: 5
       params:
       - name: eventpayload
         value: $(params.eventpayload)
