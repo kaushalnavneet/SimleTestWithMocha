@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: pipeline-generic
+  name: pipeline-generic-2
 spec:
   params:
     - name: pipeline-pvc
@@ -15,7 +15,7 @@ spec:
     - name: console-log-token
       taskRef:
         name: echo-text
-      retries: 5
+      retries: 2
       params:
       - name: eventpayload
         value: $(params.eventpayload)
@@ -25,7 +25,6 @@ spec:
         value: $(params.pipeline-debug)
     - name: clone-a-git
       runAfter: [console-log-token]
-      retries: 2
       params:
       - name: task-pvc
         value: $(params.pipeline-pvc)

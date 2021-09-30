@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline-generic-1
+spec:
+  params:
+    - name: pipeline-pvc
+      description: the pipeline pvc name
+    - name: eventpayload
+    - name: run-db
+      default: 'True'
+    - name: pipeline-debug
+      default: 'From-Pipeline'
+  tasks:
+    - name: console-log-token
+      taskRef:
+        name: echo-text
+      retries: 1
+      params:
+      - name: eventpayload
+        value: $(params.eventpayload)
+      - name: run-db
+        value: $(params.run-db)
+      - name: pipeline-debug
+        value: $(params.pipeline-debug)
+    - name: clone-a-git
+      runAfter: [console-log-token]
+      params:
+      - name: task-pvc
+        value: $(params.pipeline-pvc)
+      - name: apikey-from-echo-text
+        value: $(tasks.console-log-token.results.pass-in-apikey-as-result)
+      - name: passdown-from-echo-text
+        value: $(tasks.console-log-token.results.passdown)
+      taskRef:
+        name: git-clone

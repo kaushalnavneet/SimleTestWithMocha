@@ -36,7 +36,7 @@ spec:
 apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: template-git
+  name: template-git-1
 spec:
   params:
     - name: eventpayload
@@ -74,7 +74,111 @@ spec:
         name: pipelinerun-$(uid)
       spec:
         pipelineRef:
-            name: pipeline-generic
+            name: pipeline-generic-1
+        params:
+          - name: pipeline-pvc
+            value: pipelinerun-$(uid)-pvc
+          - name: eventpayload
+            value: $(params.eventpayload)
+          - name: run-db
+            value: $(params.run-db)
+          - name: pipeline-debug
+            value: $(params.pipeline-debug)
+---
+apiVersion: tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: template-git-2
+spec:
+  params:
+    - name: eventpayload
+    - name: run-db
+      default: 'True'
+    - name: pipeline-debug
+  resourcetemplates:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: trigger-data
+      data:
+        number: $(params.number)
+        merged: $(params.merged)
+        branch: $(params.branch)
+        revision: $(params.revision)
+        reponame: $(params.reponame)
+        TEXT: '{"good":"hello\nworld"}'
+        payload.json: |
+          $(params.eventpayload)
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: pipelinerun-$(uid)-pvc
+      spec:
+        resources:
+          requests:
+            storage:  5Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        name: pipelinerun-$(uid)
+      spec:
+        pipelineRef:
+            name: pipeline-generic-2
+        params:
+          - name: pipeline-pvc
+            value: pipelinerun-$(uid)-pvc
+          - name: eventpayload
+            value: $(params.eventpayload)
+          - name: run-db
+            value: $(params.run-db)
+          - name: pipeline-debug
+            value: $(params.pipeline-debug)
+---
+apiVersion: tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: template-git-5
+spec:
+  params:
+    - name: eventpayload
+    - name: run-db
+      default: 'True'
+    - name: pipeline-debug
+  resourcetemplates:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: trigger-data
+      data:
+        number: $(params.number)
+        merged: $(params.merged)
+        branch: $(params.branch)
+        revision: $(params.revision)
+        reponame: $(params.reponame)
+        TEXT: '{"good":"hello\nworld"}'
+        payload.json: |
+          $(params.eventpayload)
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: pipelinerun-$(uid)-pvc
+      spec:
+        resources:
+          requests:
+            storage:  5Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        name: pipelinerun-$(uid)
+      spec:
+        pipelineRef:
+            name: pipeline-generic-5
         params:
           - name: pipeline-pvc
             value: pipelinerun-$(uid)-pvc
@@ -175,7 +279,7 @@ spec:
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: show-git-repository-listener
+  name: show-git-repository-listener-1
 spec:
   triggers:
     - binding:
@@ -193,3 +297,26 @@ spec:
         name: binding-manual
       template:
         name: template-manual
+---
+apiVersion: tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: show-git-repository-listener-2
+spec:
+  triggers:
+    - binding:
+        name: binding-git
+      template:
+        name: template-git
+---
+apiVersion: tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: show-git-repository-listener-5
+spec:
+  triggers:
+    - binding:
+        name: binding-git
+      template:
+        name: template-git
+---
