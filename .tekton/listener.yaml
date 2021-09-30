@@ -319,4 +319,3 @@ spec:
         name: binding-git
       template:
         name: template-git-5
----
