@@ -285,7 +285,7 @@ spec:
     - binding:
         name: binding-git
       template:
-        name: template-git
+        name: template-git-1
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
@@ -307,7 +307,7 @@ spec:
     - binding:
         name: binding-git
       template:
-        name: template-git
+        name: template-git-2
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener
@@ -318,5 +318,5 @@ spec:
     - binding:
         name: binding-git
       template:
-        name: template-git
+        name: template-git-5
 ---
