@@ -99,7 +99,6 @@ spec:
         name: trigger-data
       data:
         location: $(params.location)
-        message: $(params.message)
         body.json: $(params.body)
         header: $(params.header)
         payload.json: |
@@ -164,8 +163,6 @@ spec:
   params:
     - name: location
       value: $(header.location)
-    - name: message
-      value: $(body.message)
     - name: eventpayload
       value: $(event)
     - name: header

@@ -29,11 +29,6 @@ spec:
           configMapKeyRef:
             name: trigger-data
             key: location
-      - name: MESSAGE
-        valueFrom:
-          configMapKeyRef:
-            name: trigger-data
-            key: message
   volumes:
     - name: trigger-data
       configMap:
