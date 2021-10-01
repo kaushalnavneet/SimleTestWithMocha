@@ -91,21 +91,19 @@ metadata:
   name: template-manual
 spec:
   params:
-    - name: secretValue
+    - name: eventpayload
   resourcetemplates:
     - apiVersion: v1
       kind: ConfigMap
       metadata:
         name: trigger-data
       data:
-        TEXT: "something to print"
-    - apiVersion: v1
-      kind: Secret
-      metadata:
-        name: cd-secret
-      type: Opaque
-      stringData:
-        API_KEY: $(params.apikey)
+        location: $(params.location)
+        message: $(params.message)
+        body.json: $(params.body)
+        header: $(params.header)
+        payload.json: |
+          $(params.eventpayload)
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
@@ -127,8 +125,10 @@ spec:
         params:
           - name: pipeline-pvc
             value: pipelinerun-$(uid)-pvc
-          - name: secretValue
-            value: $(params.secretValue)
+          - name: pipeline-debug
+            value: $(params.pipeline-debug)
+          - name: eventpayload
+            value: $(params.eventpayload)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
@@ -160,6 +160,18 @@ apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: binding-manual
+spec:
+  params:
+    - name: location
+      value: $(header.location)
+    - name: message
+      value: $(body.message)
+    - name: eventpayload
+      value: $(event)
+    - name: header
+      value: $(header)
+    - name: body
+      value: $(body)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener

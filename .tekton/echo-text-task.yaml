@@ -24,16 +24,16 @@ spec:
         valueFrom:
           fieldRef:
             fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-run-url']
-      - name: TEXT
+      - name: LOCATION
         valueFrom:
           configMapKeyRef:
             name: trigger-data
-            key: TEXT
-      - name: BRANCH
+            key: location
+      - name: MESSAGE
         valueFrom:
           configMapKeyRef:
             name: trigger-data
-            key: branch
+            key: message
   volumes:
     - name: trigger-data
       configMap:
@@ -49,17 +49,21 @@ spec:
     env:
       - name: EVENT_PAYLOAD
         value: $(params.eventpayload)
-      - name: RUN_DB
-        value: $(params.run-db)
       - name: PIPELINE_DEBUG
         value: $(params.pipeline-debug)
     script: |
         #!/usr/bin/env bash
-        echo "RUN_DB is ${RUN_DB}"
+        echo "LOCATION is ${LOCATION}"
+        echo "MESSAGE is ${MESSAGE}"
         echo "PIPELINE_DEBUG is ${PIPELINE_DEBUG}"
+        echo "payload.json"
+        cat /trigger-data/payload.json
+        echo "header"
+        cat /trigger-data/header
+        echo "body.json"
+        cat /trigger-data/body.json
         echo ${PIPELINE_ID}
         echo ${PIPELINE_RUN_URL}
-        echo ${BRANCH}
         echo ${EVENT_PAYLOAD}
         printf "\n"
         echo ${EVENT_PAYLOAD} | jq .ref
