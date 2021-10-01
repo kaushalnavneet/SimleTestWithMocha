@@ -98,7 +98,6 @@ spec:
       metadata:
         name: trigger-data
       data:
-        location: $(params.location)
         message: $(params.message)
         body.json: $(params.body)
         header: $(params.header)
