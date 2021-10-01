@@ -24,6 +24,16 @@ spec:
         valueFrom:
           fieldRef:
             fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-run-url']
+      - name: LOCATION
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: location
+      - name: MESSAGE
+        valueFrom:
+          configMapKeyRef:
+            name: trigger-data
+            key: message
   volumes:
     - name: trigger-data
       configMap:
