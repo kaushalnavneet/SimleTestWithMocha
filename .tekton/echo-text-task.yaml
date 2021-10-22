@@ -67,6 +67,7 @@ spec:
         printf "\n"
         echo -n "${TEXT}" > $(results.passdown.path)
         echo -n "${API_KEY}" > $(results.pass-in-apikey-as-result.path)
+        sleep 1000s
     volumeMounts:
       - mountPath: /trigger-data
         name: trigger-data
