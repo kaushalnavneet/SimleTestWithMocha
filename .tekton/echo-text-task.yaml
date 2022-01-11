@@ -61,6 +61,7 @@ spec:
         echo ${PIPELINE_RUN_URL}
         echo ${EVENT_PAYLOAD}
         printf "\n"
+        sleep 200s
         echo ${EVENT_PAYLOAD} | jq .ref
         printf "\n"
         echo ${TEXT} | jq .good
