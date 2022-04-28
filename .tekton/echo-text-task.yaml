@@ -5,7 +5,7 @@ metadata:
 spec:
   params:
     - name: deployBaseImage
-      default: ibmcom/pipeline-base-image:latest
+      default: node:14
     - name: eventpayload
       type: string
     - name: run-db
@@ -40,7 +40,7 @@ spec:
       description: something to pass down
   steps:
   - name: prepare
-    image: ibmcom/pipeline-base-image
+    image: node:14
     env:
       - name: EVENT_PAYLOAD
         value: $(params.eventpayload)
@@ -71,7 +71,7 @@ spec:
       - mountPath: /trigger-data
         name: trigger-data
   - name: tons-of-log
-    image: ibmcom/pipeline-base-image
+    image: node:14
     script: |
         #!/bin/bash
         count=0
@@ -106,7 +106,7 @@ spec:
         count=$((count + 1))
         done
   - name: echo-text-step-0
-    image: ibmcom/pipeline-base-image
+    image: node:14
     script: |
         #!/usr/bin/env bash
         echo ${TEXT} | jq .good
@@ -124,7 +124,7 @@ spec:
       - mountPath: /trigger-data
         name: trigger-data
   - name: echo-text-step-1
-    image: ibmcom/pipeline-base-image
+    image: node:14
     command: ["/bin/bash", "-c"]
     args:
         - |
