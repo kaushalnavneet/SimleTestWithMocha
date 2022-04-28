@@ -5,7 +5,7 @@ metadata:
 spec:
   params:
     - name: deployBaseImage
-      default: ibmcom/pipeline-base-image:latest
+      default: node:14
   stepTemplate:
     env:
       - name: SLACK_TOKEN

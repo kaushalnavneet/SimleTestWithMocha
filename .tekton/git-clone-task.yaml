@@ -7,7 +7,7 @@ spec:
     - name: task-pvc
       description: the output pvc - this is where the cloned repository will be stored
     - name: deployBaseImage
-      default: ibmcom/pipeline-base-image:latest
+      default: node:14
     - name: apikey-from-echo-text
     - name: passdown-from-echo-text
   steps:
