@@ -36,7 +36,6 @@ spec:
           git config --global push.default matching
           git clone -q -b master https://github.com/SidneyJiang/simple-toolchain-20191105144723407
           ls
-          sleep 1000s
           pwd
     volumeMounts:
       - mountPath: /workspace
